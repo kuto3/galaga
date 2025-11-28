@@ -1,5 +1,5 @@
-NOM Prénom binôme 1
-NOM Prénom binôme 2
+ROLANDIN Enzo binôme 1
+LE GAL Demet binôme 2
 
 Explication des fonctionnalitées réalisée :
 ...
