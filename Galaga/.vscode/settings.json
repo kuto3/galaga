@@ -1,0 +1,15 @@
+{
+    "java.project.sourcePaths": ["src"],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ],
+    "editor.formatOnSave": true,
+    "java.test.config": {
+        "coverage": {
+            "appendResult": false
+        }
+    },
+    "editor.inlayHints.enabled": "off",
+    "chat.disableAIFeatures": false
+}
