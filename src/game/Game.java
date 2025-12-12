@@ -2,26 +2,29 @@ package game;
 
 import engine.StdDraw;
 import game.actors.Player;
+import utils.Vector2;
 
 /**
  * Classe du jeu principal.
  * Gère la création de l'espace de jeu et la boucle de jeu en temps réel.
  */
 public class Game {
+    public static int SCREEN_WIDTH = 500;
+    public static int SCREEN_HEIGHT = 500;
     public Player player; // Jouer, seul éléments actuellement dans notre jeu
 
     /**
      * Créé un jeu avec tous les éléments qui le composent
      */
     public Game() {
-        player = new Player(0.5, 0.5, 0.05);
+        player = new Player(new Vector2(0.05, 0.1), 0.1);
     }
 
     /**
      * Initialise l'espace de jeu
      */
     private void init() {
-        StdDraw.setCanvasSize(700, 700);
+        StdDraw.setCanvasSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         StdDraw.enableDoubleBuffering();
     }
 
@@ -38,7 +41,7 @@ public class Game {
             draw(); // on dessine chaques éléments
 
             StdDraw.show(); // on montre l'interface
-            StdDraw.pause(30); // on attend 30 milisecondes avant de recommencer
+            StdDraw.pause(10); // on attend 10 milisecondes avant de recommencer
         }
     }
 
