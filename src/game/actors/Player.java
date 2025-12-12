@@ -1,6 +1,7 @@
 package game.actors;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -23,36 +24,34 @@ public class Player extends Entity {
      * @param length           largeur du joueur
      */
     public Player(Vector2 startingPosition, double length) {
-        super(startingPosition, 3, 0.01, null, 1);
+        super(startingPosition, 3, 0.01, "ship", 1);
         this.length = length;
     }
 
     /**
-     * Dessine le joueur, ici c'est un rond rouge
+     * Dessine le joueur
      */
     @Override
     public void draw() {
         if (sprite == null) {
             StdDraw.setPenColor(StdDraw.RED);
             StdDraw.filledCircle(getPosition().x(), getPosition().y(), length / 2);
-        } else {
-            try (BufferedReader reader = new BufferedReader(new FileReader("ressources/sprites/" + sprite))) {
-                var line = reader.readLine();
+            return;
+        }
 
-                var j = 0;
-                while (line != null) {
-                    var x = getPosition().x();
-                    var y = getPosition().y();
-                    for (int i = 0; i < line.length(); i++) {
-                        StdDraw.setPenColor(ColorUtils.toColor(line.charAt(i)));
-                        StdDraw.point(x + i, y + j);
-                    }
-                    j++;
-                }
-            } catch (IOException e) {
-                System.out.println("On a pas pu trouver le sprite " + sprite + ": " + e);
+        for (int i = 0; i < spriteInfo.length; i++) {
+            var line = spriteInfo[i];
+            for (int j = 0; j < line.length; j++) {
+                var x = getPosition().x();
+                var y = getPosition().y();
+                var pixelSize = length / line.length;
+
+                StdDraw.setPenColor(line[i]);
+                StdDraw.setPenRadius(pixelSize);
+                StdDraw.point(x + i * pixelSize, y - j * pixelSize);
             }
         }
+
     }
 
     /**

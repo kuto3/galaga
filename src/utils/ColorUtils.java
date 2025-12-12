@@ -7,7 +7,12 @@ public final class ColorUtils {
         switch (character) {
             case 'N':
                 return Color.BLACK;
-
+            case 'B':
+                return Color.BLUE;
+            case 'Y':
+                return Color.YELLOW;
+            case 'R':
+                return Color.RED;
             default:
                 return Color.RED;
         }

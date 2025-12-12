@@ -1,5 +1,7 @@
 package game;
 
+import java.awt.Color;
+
 import engine.StdDraw;
 import game.actors.Player;
 import utils.Vector2;
@@ -58,6 +60,8 @@ public class Game {
      * Dessin tous les éléments du jeu
      */
     public void draw() {
+        StdDraw.setPenColor(Color.BLACK);
+        StdDraw.filledRectangle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         player.draw();
     }
 

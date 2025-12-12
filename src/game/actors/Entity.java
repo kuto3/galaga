@@ -1,5 +1,13 @@
 package game.actors;
 
+import java.awt.Color;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
+import engine.StdDraw;
+import utils.ColorUtils;
 import utils.Vector2;
 
 public abstract class Entity {
@@ -11,6 +19,7 @@ public abstract class Entity {
     protected boolean canAttack;
     protected String sprite;
     protected double lerpSpeed;
+    protected Color[][] spriteInfo;
 
     public Entity(Vector2 pos, int lives, double speed, String sprite, double lerpSpeed) {
         this.startingPos = pos;
@@ -21,9 +30,34 @@ public abstract class Entity {
         this.canAttack = false;
         this.sprite = sprite;
         this.lerpSpeed = lerpSpeed;
+        if (sprite != null)
+            loadSpriteInfo();
     }
 
     public abstract void draw();
+
+    private void loadSpriteInfo() {
+        File file = new File("ressources/sprites/" + sprite + ".spr");
+        if (!file.exists())
+            return;
+
+        try (BufferedReader reader = new BufferedReader(
+                new FileReader(file))) {
+            var line = reader.readLine();
+            spriteInfo = new Color[reader.lines().toArray().length][];
+
+            while (line != null) {
+                var colorLine = new Color[line.length()];
+                for (int i = 0; i < line.length(); i++) {
+                    var color = ColorUtils.toColor(line.charAt(i));
+                    colorLine[i] = color;
+                }
+                line = reader.readLine();
+            }
+        } catch (IOException e) {
+            System.out.println("On a pas pu trouver le sprite " + sprite + ": " + e);
+        }
+    }
 
     public void update() {
         position = position.lerp(targetPosition, lerpSpeed);
