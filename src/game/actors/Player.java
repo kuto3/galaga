@@ -51,7 +51,6 @@ public class Player extends Entity {
                 StdDraw.point(x + i * pixelSize, y - j * pixelSize);
             }
         }
-
     }
 
     /**
@@ -69,6 +68,11 @@ public class Player extends Entity {
         // Si la flèche droite est préssé
         if (StdDraw.isKeyPressed(39)) {
             newX += speed;
+        }
+
+        if (StdDraw.isKeyPressed(69)) {
+            shoot();
+
         }
 
         // On plafone la nouvelle position dans les limites de l'écran

@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import engine.StdDraw;
 import utils.ColorUtils;
+import game.Game;
 import utils.Vector2;
 
 public abstract class Entity {
@@ -27,7 +28,7 @@ public abstract class Entity {
         this.targetPosition = pos;
         this.lives = lives;
         this.speed = speed;
-        this.canAttack = false;
+        this.canAttack = true;
         this.sprite = sprite;
         this.lerpSpeed = lerpSpeed;
         if (sprite != null)
@@ -64,6 +65,14 @@ public abstract class Entity {
     }
 
     public void shoot() {
+
+        if (isAlive() && canAttack && Game.time % 20 == 0) {
+            Missile x = new Missile(new Vector2(position.x(), position.y()), 0.01, null, 0.2);
+            Game.missiles.add(x);
+
+            System.out.println("Missile créé aux coordonnées : " + x.getPosition().x() + ", " + x.getPosition().y());
+
+        }
 
     }
 
