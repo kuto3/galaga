@@ -72,6 +72,11 @@ public class Player extends Entity {
             newX += speed;
         }
 
+        if(StdDraw.isKeyPressed(69)) {
+            shoot();
+ 
+        }
+
         // On plafone la nouvelle position dans les limites de l'écran
         var newTargetPos = new Vector2(newX, newY);
         newTargetPos.clampToBoundBox(

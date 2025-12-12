@@ -1,6 +1,10 @@
 package game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import engine.StdDraw;
+import game.actors.Missile;
 import game.actors.Player;
 import utils.Vector2;
 
@@ -12,7 +16,10 @@ public class Game {
     public static int SCREEN_WIDTH = 500;
     public static int SCREEN_HEIGHT = 500;
     public Player player; // Jouer, seul éléments actuellement dans notre jeu
-
+    public static List<Missile> missiles = new ArrayList<>();
+    public static List<Vector2> enemies = new ArrayList<>();
+    public static List<Vector2> enemyMissiles = new ArrayList<>();
+    public static int time;
     /**
      * Créé un jeu avec tous les éléments qui le composent
      */
@@ -42,6 +49,7 @@ public class Game {
 
             StdDraw.show(); // on montre l'interface
             StdDraw.pause(10); // on attend 10 milisecondes avant de recommencer
+            time++;
         }
     }
 
@@ -59,12 +67,18 @@ public class Game {
      */
     public void draw() {
         player.draw();
+        missiles.forEach(Missile::draw);
     }
 
     /**
      * Met a jour les attributs de tous les éléments du jeu
      */
+ 
     private void update() {
         player.update();
+        missiles.forEach(Missile::update);
+     
+   
+        
     }
 }

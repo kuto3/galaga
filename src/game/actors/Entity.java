@@ -1,5 +1,6 @@
 package game.actors;
 
+import game.Game;
 import utils.Vector2;
 
 public abstract class Entity {
@@ -11,14 +12,14 @@ public abstract class Entity {
     protected boolean canAttack;
     protected String sprite;
     protected double lerpSpeed;
-
+ 
     public Entity(Vector2 pos, int lives, double speed, String sprite, double lerpSpeed) {
         this.startingPos = pos;
         this.position = pos;
         this.targetPosition = pos;
         this.lives = lives;
         this.speed = speed;
-        this.canAttack = false;
+        this.canAttack = true;
         this.sprite = sprite;
         this.lerpSpeed = lerpSpeed;
     }
@@ -29,10 +30,19 @@ public abstract class Entity {
         position = position.lerp(targetPosition, lerpSpeed);
     }
 
-    public void shoot() {
+    public void shoot() {   
 
+        if(isAlive() && canAttack && Game.time % 20 == 0) {
+            Missile x = new Missile(new Vector2(position.x(), position.y()), 0.01, null, 0.2);
+            Game.missiles.add(x);
+            
+            System.out.println("Missile créé aux coordonnées : " + x.getPosition().x() + ", " + x.getPosition().y());
+
+        }
+ 
     }
 
+   
     public boolean isAlive() {
         return lives > 0;
     }
