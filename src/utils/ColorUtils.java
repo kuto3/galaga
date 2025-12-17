@@ -13,8 +13,10 @@ public final class ColorUtils {
                 return Color.YELLOW;
             case 'R':
                 return Color.RED;
+            case 'W':
+                return Color.WHITE;
             default:
-                return Color.RED;
+                return Color.BLACK;
         }
     }
 }

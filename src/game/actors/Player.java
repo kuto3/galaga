@@ -1,12 +1,6 @@
 package game.actors;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-
 import engine.StdDraw;
-import utils.ColorUtils;
 import utils.Vector2;
 
 /**
@@ -24,33 +18,8 @@ public class Player extends Entity {
      * @param length           largeur du joueur
      */
     public Player(Vector2 startingPosition, double length) {
-        super(startingPosition, 3, 0.01, "ship", 1);
+        super(startingPosition, 3, 0.05, "ship", length, 1);
         this.length = length;
-    }
-
-    /**
-     * Dessine le joueur
-     */
-    @Override
-    public void draw() {
-        if (sprite == null) {
-            StdDraw.setPenColor(StdDraw.RED);
-            StdDraw.filledCircle(getPosition().x(), getPosition().y(), length / 2);
-            return;
-        }
-
-        for (int i = 0; i < spriteInfo.length; i++) {
-            var line = spriteInfo[i];
-            for (int j = 0; j < line.length; j++) {
-                var x = getPosition().x();
-                var y = getPosition().y();
-                var pixelSize = length / line.length;
-
-                StdDraw.setPenColor(line[i]);
-                StdDraw.setPenRadius(pixelSize);
-                StdDraw.point(x + i * pixelSize, y - j * pixelSize);
-            }
-        }
     }
 
     /**
@@ -72,15 +41,15 @@ public class Player extends Entity {
 
         if (StdDraw.isKeyPressed(69)) {
             shoot();
-
         }
 
         // On plafone la nouvelle position dans les limites de l'écran
         var newTargetPos = new Vector2(newX, newY);
         newTargetPos.clampToBoundBox(
-                new Vector2(length / 2, length / 2),
-                new Vector2(1 - length / 2, 1 - length / 2));
+                new Vector2(length, length),
+                new Vector2(2 - length, 2 - length));
 
+        System.out.println(newTargetPos);
         setTargetPosition(newTargetPos);
         super.update();
     }

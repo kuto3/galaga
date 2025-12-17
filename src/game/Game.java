@@ -15,8 +15,8 @@ import utils.Vector2;
  * Gère la création de l'espace de jeu et la boucle de jeu en temps réel.
  */
 public class Game {
-    public static int SCREEN_WIDTH = 500;
-    public static int SCREEN_HEIGHT = 500;
+    public static int SCREEN_WIDTH = 800;
+    public static int SCREEN_HEIGHT = 800;
     public Player player; // Jouer, seul éléments actuellement dans notre jeu
     public static List<Missile> missiles = new ArrayList<>();
     public static List<Vector2> enemies = new ArrayList<>();
@@ -27,7 +27,7 @@ public class Game {
      * Créé un jeu avec tous les éléments qui le composent
      */
     public Game() {
-        player = new Player(new Vector2(0.05, 0.1), 0.1);
+        player = new Player(new Vector2(0.5, 0.3), 0.05);
     }
 
     /**
@@ -51,7 +51,7 @@ public class Game {
             draw(); // on dessine chaques éléments
 
             StdDraw.show(); // on montre l'interface
-            StdDraw.pause(10); // on attend 10 milisecondes avant de recommencer
+            StdDraw.pause(20); // on attend 10 milisecondes avant de recommencer
             time++;
         }
     }
@@ -71,8 +71,8 @@ public class Game {
     public void draw() {
         StdDraw.setPenColor(Color.BLACK);
         StdDraw.filledRectangle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-        player.draw();
         missiles.forEach(Missile::draw);
+        player.draw();
     }
 
     /**
@@ -82,6 +82,5 @@ public class Game {
     private void update() {
         player.update();
         missiles.forEach(Missile::update);
-
     }
 }

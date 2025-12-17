@@ -19,10 +19,11 @@ public abstract class Entity {
     protected double speed;
     protected boolean canAttack;
     protected String sprite;
+    protected double size;
     protected double lerpSpeed;
     protected Color[][] spriteInfo;
 
-    public Entity(Vector2 pos, int lives, double speed, String sprite, double lerpSpeed) {
+    public Entity(Vector2 pos, int lives, double speed, String sprite, double size, double lerpSpeed) {
         this.startingPos = pos;
         this.position = pos;
         this.targetPosition = pos;
@@ -30,12 +31,31 @@ public abstract class Entity {
         this.speed = speed;
         this.canAttack = true;
         this.sprite = sprite;
+        this.size = size;
         this.lerpSpeed = lerpSpeed;
         if (sprite != null)
             loadSpriteInfo();
     }
 
-    public abstract void draw();
+    public void draw() {
+        if (sprite == null || spriteInfo == null) {
+            StdDraw.setPenColor(Color.RED);
+            StdDraw.filledCircle(position.x(), position.y(), size / 2);
+            return;
+        }
+
+        for (int i = 0; i < spriteInfo.length; i++) {
+            var line = spriteInfo[i];
+            for (int j = 0; j < line.length; j++) {
+                var x = getPosition().x() / 2;
+                var y = getPosition().y() / 2;
+
+                var pixelSize = size / Game.SCREEN_WIDTH * 100;
+                StdDraw.setPenColor(line[j]);
+                StdDraw.filledSquare(x + j * pixelSize, y - i * pixelSize, pixelSize);
+            }
+        }
+    };
 
     private void loadSpriteInfo() {
         File file = new File("ressources/sprites/" + sprite + ".spr");
@@ -44,16 +64,19 @@ public abstract class Entity {
 
         try (BufferedReader reader = new BufferedReader(
                 new FileReader(file))) {
-            var line = reader.readLine();
-            spriteInfo = new Color[reader.lines().toArray().length][];
+            var lines = reader.lines().toArray(String[]::new);
+            var linesLength = lines.length;
+            spriteInfo = new Color[linesLength][];
+            for (int j = 0; j < linesLength; j++) {
+                var line = lines[j];
+                System.out.println(line);
+                var lineLength = line.length();
+                var colorLine = new Color[lineLength];
 
-            while (line != null) {
-                var colorLine = new Color[line.length()];
-                for (int i = 0; i < line.length(); i++) {
-                    var color = ColorUtils.toColor(line.charAt(i));
-                    colorLine[i] = color;
-                }
-                line = reader.readLine();
+                for (int i = 0; i < lineLength; i++)
+                    colorLine[i] = ColorUtils.toColor(line.charAt(i));
+
+                spriteInfo[j] = colorLine;
             }
         } catch (IOException e) {
             System.out.println("On a pas pu trouver le sprite " + sprite + ": " + e);
@@ -67,10 +90,11 @@ public abstract class Entity {
     public void shoot() {
 
         if (isAlive() && canAttack && Game.time % 20 == 0) {
-            Missile x = new Missile(new Vector2(position.x(), position.y()), 0.01, null, 0.2);
-            Game.missiles.add(x);
+            Missile missile = new Missile(new Vector2(position.x(), position.y()), 0.01, 0.2);
+            Game.missiles.add(missile);
 
-            System.out.println("Missile créé aux coordonnées : " + x.getPosition().x() + ", " + x.getPosition().y());
+            System.out.println(
+                    "Missile créé aux coordonnées : " + missile.getPosition().x() + ", " + missile.getPosition().y());
 
         }
 
