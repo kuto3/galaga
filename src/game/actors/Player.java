@@ -39,8 +39,10 @@ public class Player extends Entity {
             newX += speed;
         }
 
-        if (StdDraw.isKeyPressed(69)) {
+        if (StdDraw.isKeyPressed(32)) {
             shoot();
+            draw();
+
         }
 
         // On plafone la nouvelle position dans les limites de l'écran
@@ -49,7 +51,6 @@ public class Player extends Entity {
                 new Vector2(length / 2, length / 2),
                 new Vector2(1 - length / 2, 1 - length / 2));
 
-        System.out.println(newTargetPos);
         setTargetPosition(newTargetPos);
         super.update();
     }
