@@ -17,8 +17,8 @@ public class Missile {
     }
 
     public void draw() {
-        StdDraw.setPenColor(StdDraw.BLUE);
-        StdDraw.filledCircle(getPosition().x(), getPosition().y(), 0.01);
+        StdDraw.setPenColor(StdDraw.RED);
+        StdDraw.filledRectangle(getPosition().x(), getPosition().y(), 0.004, 0.01);
     }
 
     public void update() {
