@@ -1,13 +1,9 @@
 package game.actors;
 
 import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 
 import engine.StdDraw;
-import utils.ColorUtils;
+import utils.EntityUtils;
 import game.Game;
 import utils.Vector2;
 
@@ -34,7 +30,7 @@ public abstract class Entity {
         this.size = size;
         this.lerpSpeed = lerpSpeed;
         if (sprite != null)
-            loadSpriteInfo();
+            spriteInfo = EntityUtils.loadSpriteInfo(sprite);
     }
 
     public void draw() {
@@ -57,32 +53,6 @@ public abstract class Entity {
             }
         }
     };
-
-    private void loadSpriteInfo() {
-        File file = new File("ressources/sprites/" + sprite + ".spr");
-        if (!file.exists())
-            return;
-
-        try (BufferedReader reader = new BufferedReader(
-                new FileReader(file))) {
-            var lines = reader.lines().toArray(String[]::new);
-            var linesLength = lines.length;
-            spriteInfo = new Color[linesLength][];
-
-            for (int j = 0; j < linesLength; j++) {
-                var line = lines[j];
-                var lineLength = line.length();
-                var colorLine = new Color[lineLength];
-
-                for (int i = 0; i < lineLength; i++)
-                    colorLine[i] = ColorUtils.toColor(line.charAt(i));
-
-                spriteInfo[j] = colorLine;
-            }
-        } catch (IOException e) {
-            System.out.println("On a pas pu trouver le sprite " + sprite + ": " + e);
-        }
-    }
 
     public void update() {
         position = position.lerp(targetPosition, lerpSpeed);
