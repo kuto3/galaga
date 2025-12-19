@@ -1,22 +1,18 @@
 package game.actors;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.awt.Color;
 import engine.StdDraw;
 import utils.Vector2;
 
 import game.Game;
-import utils.ColorUtils;
+
+import utils.EntityUtils;
 
 public class Missile {
     private Vector2 position;
     protected int lives;
     protected double speed;
     protected double lerpSpeed;
-    private Vector2 startingPos;
 
     protected Vector2 targetPosition;
 
@@ -30,33 +26,10 @@ public class Missile {
         this.position = pos;
         this.speed = speed;
         this.lerpSpeed = lerpSpeed;
+        this.sprite = "missile";
+        this.spriteInfo = EntityUtils.loadSpriteInfo(sprite);
+        this.size = 0.009;
 
-    }
-
-    private void loadSpriteInfo() {
-        File file = new File("ressources/sprites/" + sprite + ".spr");
-        if (!file.exists())
-            return;
-
-        try (BufferedReader reader = new BufferedReader(
-                new FileReader(file))) {
-            var lines = reader.lines().toArray(String[]::new);
-            var linesLength = lines.length;
-            spriteInfo = new Color[linesLength][];
-
-            for (int j = 0; j < linesLength; j++) {
-                var line = lines[j];
-                var lineLength = line.length();
-                var colorLine = new Color[lineLength];
-
-                for (int i = 0; i < lineLength; i++)
-                    colorLine[i] = ColorUtils.toColor(line.charAt(i));
-
-                spriteInfo[j] = colorLine;
-            }
-        } catch (IOException e) {
-            System.out.println("On a pas pu trouver le sprite " + sprite + ": " + e);
-        }
     }
 
     public void draw() {
