@@ -18,7 +18,7 @@ public class Player extends Entity {
      * @param length           largeur du joueur
      */
     public Player(Vector2 startingPosition, double length) {
-        super(startingPosition, 3, 0.05, "ship", length, 1);
+        super(startingPosition, 3, 0.02, "ship", length, 1);
         this.length = length;
     }
 
