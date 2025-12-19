@@ -27,7 +27,7 @@ public class Game {
      * Créé un jeu avec tous les éléments qui le composent
      */
     public Game() {
-        player = new Player(new Vector2(0.5, 0.3), 0.05);
+        player = new Player(new Vector2(0.5, 0.15), 0.04);
     }
 
     /**

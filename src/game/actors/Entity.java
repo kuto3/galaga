@@ -47,12 +47,13 @@ public abstract class Entity {
         for (int i = 0; i < spriteInfo.length; i++) {
             var line = spriteInfo[i];
             for (int j = 0; j < line.length; j++) {
-                var x = getPosition().x() / 2;
-                var y = getPosition().y() / 2;
+                var pixelSize = size / 2 / Game.SCREEN_WIDTH * 100;
 
-                var pixelSize = size / Game.SCREEN_WIDTH * 100;
+                var x = getPosition().x() - pixelSize * line.length / 2;
+                var y = getPosition().y() - pixelSize * spriteInfo.length / 2;
+
                 StdDraw.setPenColor(line[j]);
-                StdDraw.filledSquare(x + j * pixelSize, y - i * pixelSize, pixelSize);
+                StdDraw.filledSquare(x + j * pixelSize * 2, y - i * pixelSize * 2, pixelSize);
             }
         }
     };
@@ -67,9 +68,9 @@ public abstract class Entity {
             var lines = reader.lines().toArray(String[]::new);
             var linesLength = lines.length;
             spriteInfo = new Color[linesLength][];
+
             for (int j = 0; j < linesLength; j++) {
                 var line = lines[j];
-                System.out.println(line);
                 var lineLength = line.length();
                 var colorLine = new Color[lineLength];
 

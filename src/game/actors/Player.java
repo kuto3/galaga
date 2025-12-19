@@ -18,7 +18,7 @@ public class Player extends Entity {
      * @param length           largeur du joueur
      */
     public Player(Vector2 startingPosition, double length) {
-        super(startingPosition, 3, 0.05, "ship", length, 1);
+        super(startingPosition, 3, 0.05, "ship", length, 0.05);
         this.length = length;
     }
 
@@ -46,8 +46,8 @@ public class Player extends Entity {
         // On plafone la nouvelle position dans les limites de l'écran
         var newTargetPos = new Vector2(newX, newY);
         newTargetPos.clampToBoundBox(
-                new Vector2(length, length),
-                new Vector2(2 - length, 2 - length));
+                new Vector2(length / 2, length / 2),
+                new Vector2(1 - length / 2, 1 - length / 2));
 
         System.out.println(newTargetPos);
         setTargetPosition(newTargetPos);
