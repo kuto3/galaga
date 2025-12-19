@@ -70,9 +70,11 @@ public class Game {
      */
     public void draw() {
         StdDraw.setPenColor(Color.BLACK);
+
         StdDraw.filledRectangle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         missiles.forEach(Missile::draw);
         player.draw();
+
     }
 
     /**
