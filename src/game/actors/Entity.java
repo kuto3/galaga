@@ -18,6 +18,7 @@ public abstract class Entity {
     protected double size;
     protected double lerpSpeed;
     protected Color[][] spriteInfo;
+    private int timeLastShot;
 
     public Entity(Vector2 pos, int lives, double speed, String sprite, double size, double lerpSpeed) {
         this.startingPos = pos;
@@ -56,14 +57,16 @@ public abstract class Entity {
 
     public void update() {
         position = position.lerp(targetPosition, lerpSpeed);
+
     }
 
     public void shoot() {
 
-        if (isAlive() && canAttack && Game.time % 20 == 0) {
+        if (isAlive() && canAttack && Game.time - timeLastShot > 20) {
             Missile missile = new Missile(new Vector2(position.x(), position.y()), 0.01, 0.2);
             Game.missiles.add(missile);
 
+            timeLastShot = Game.time;
         }
 
     }
