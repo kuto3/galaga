@@ -15,6 +15,8 @@ public final class ColorUtils {
                 return Color.RED;
             case 'W':
                 return Color.WHITE;
+            case 'G':
+                return Color.GREEN;
             default:
                 return Color.BLACK;
         }

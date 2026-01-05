@@ -61,6 +61,8 @@ public abstract class Entity {
     }
 
     public void shoot() {
+        if (isAlive() && canAttack && Game.time % 10 == 0) {
+            Missile missile = new Missile(new Vector2(position.x(), position.y()), 0.02, 0.2);
 
         if (isAlive() && canAttack && Game.time - timeLastShot > 20) {
             Missile missile = new Missile(new Vector2(position.x(), position.y()), 0.01, 0.2);
