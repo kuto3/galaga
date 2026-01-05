@@ -2,6 +2,11 @@ package game.actors;
 
 import utils.Vector2;
 
+/**
+ * Classe représentant le jouuer.
+ * A ce stade ce n'est qu'un point rouge qui se déplace avec les flèches du
+ * clavier.
+ */
 public class Ennemy extends Entity {
     private int points;
 
