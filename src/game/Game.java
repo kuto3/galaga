@@ -8,6 +8,7 @@ import java.util.List;
 import engine.StdDraw;
 import game.actors.Missile;
 import game.actors.Player;
+import game.actors.Ennemy;
 import utils.Vector2;
 
 /**
@@ -19,15 +20,18 @@ public class Game {
     public static int SCREEN_HEIGHT = 800;
     public Player player; // Jouer, seul éléments actuellement dans notre jeu
     public static List<Missile> missiles = new ArrayList<>();
-    public static List<Vector2> enemies = new ArrayList<>();
+    public static List<Ennemy> enemies = new ArrayList<>();
     public static List<Vector2> enemyMissiles = new ArrayList<>();
     public static int time;
+    public Ennemy ennemy1;
 
     /**
      * Créé un jeu avec tous les éléments qui le composent
      */
     public Game() {
         player = new Player(new Vector2(0.5, 0.15), 0.04);
+        ennemy1 = new Ennemy(new Vector2(0.5, 0.15), 0.04);
+        enemies.add(ennemy1);
     }
 
     /**
@@ -89,6 +93,7 @@ public class Game {
 
     private void update() {
         player.update();
+        enemies.forEach(Ennemy::update);
         missiles.forEach(Missile::update);
     }
 }
