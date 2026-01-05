@@ -7,9 +7,19 @@ import utils.Vector2;
  * A ce stade ce n'est qu'un point rouge qui se déplace avec les flèches du
  * clavier.
  */
-public class Ennemy extends Entity {
+public abstract class Ennemy extends Entity {
     private int points;
 
+    /**
+     * 
+     * @param pos
+     * @param health
+     * @param speed
+     * @param sprite
+     * @param size
+     * @param lerpSpeed
+     * @param points
+     */
     public Ennemy(Vector2 pos, int health, double speed, String sprite, double size, double lerpSpeed, int points) {
         super(pos, health, speed, sprite, size, lerpSpeed);
         this.points = points;
@@ -19,6 +29,7 @@ public class Ennemy extends Entity {
         return points;
     }
 
+    @Override
     public void update() {
         double newX = targetPosition.x();
         double newY = targetPosition.y();
