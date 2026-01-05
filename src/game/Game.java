@@ -1,7 +1,7 @@
 package game;
 
 import java.awt.Color;
-
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,11 +31,14 @@ public class Game {
     }
 
     /**
+     * /**
      * Initialise l'espace de jeu
      */
     private void init() {
         StdDraw.setCanvasSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+
         StdDraw.enableDoubleBuffering();
+
     }
 
     /**
@@ -49,9 +52,12 @@ public class Game {
 
             update(); // on met a jour les attributs de chaque éléments
             draw(); // on dessine chaques éléments
-
+            StdDraw.setPenColor(StdDraw.RED);
+            StdDraw.setFont(new Font("Arial", Font.BOLD, 24));
+            StdDraw.text(0.5, 0.95, "GALAGA ");
+            StdDraw.text(0.1, 0.95, "SCORE: "); // Coordonnées normalisées
             StdDraw.show(); // on montre l'interface
-            StdDraw.pause(20); // on attend 10 milisecondes avant de recommencer
+            StdDraw.pause(5); // on attend 10 milisecondes avant de recommencer
             time++;
         }
     }

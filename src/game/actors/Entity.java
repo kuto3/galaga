@@ -63,9 +63,6 @@ public abstract class Entity {
             Missile missile = new Missile(new Vector2(position.x(), position.y()), 0.02, 0.2);
             Game.missiles.add(missile);
 
-            System.out.println(
-                    "Missile créé aux coordonnées : " + missile.getPosition().x() + ", " + missile.getPosition().y());
-
         }
 
     }
