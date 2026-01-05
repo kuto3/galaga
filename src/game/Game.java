@@ -8,6 +8,7 @@ import java.util.List;
 import engine.StdDraw;
 import game.actors.Missile;
 import game.actors.Player;
+import game.levels.LevelManager;
 import utils.Vector2;
 
 /**
@@ -36,9 +37,8 @@ public class Game {
      */
     private void init() {
         StdDraw.setCanvasSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-
         StdDraw.enableDoubleBuffering();
-
+        LevelManager.loadLevel("level1");
     }
 
     /**

@@ -17,6 +17,7 @@ public abstract class Entity {
     protected String sprite;
     protected double size;
     protected double lerpSpeed;
+    protected double length;
     protected Color[][] spriteInfo;
     private int timeLastShot;
 

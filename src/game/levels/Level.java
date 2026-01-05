@@ -15,32 +15,12 @@ public class Level {
 
     public Level(String name) {
         this.name = name;
-        this.enemies = load();
+        this.enemies = new ArrayList<>();
     }
 
-    public List<Ennemy> load() {
-        File file = new File("ressources/levels/" + name + ".lvl");
-        if (!file.exists())
-            return null;
-
-        try (BufferedReader reader = new BufferedReader(
-                new FileReader(file))) {
-            var levelInfo = reader.readLine();
-
-            var lines = reader.lines().toArray(String[]::new);
-            var linesLength = lines.length;
-
-            for (var line : lines) {
-
-            }
-
-            var enemy = new ArrayList<Ennemy>();
-
-            return enemy;
-        } catch (IOException e) {
-            System.out.println("On a pas pu trouver le niveau " + name + ": " + e);
-        }
-
-        return null;
+    public void addEnemy(Ennemy enemy) {
+        if (enemies.contains(enemy))
+            return;
+        enemies.add(enemy);
     }
 }
