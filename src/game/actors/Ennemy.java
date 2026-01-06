@@ -11,6 +11,7 @@ public abstract class Ennemy extends Entity {
     private int points;
 
     /**
+     * Créer un enemie
      * 
      * @param pos
      * @param health
@@ -21,7 +22,7 @@ public abstract class Ennemy extends Entity {
      * @param points
      */
     public Ennemy(Vector2 pos, int health, double speed, String sprite, double size, double lerpSpeed, int points) {
-        super(pos, health, speed, sprite, size, lerpSpeed);
+        super(pos, health, 1, speed, sprite, size, lerpSpeed);
         this.points = points;
     }
 

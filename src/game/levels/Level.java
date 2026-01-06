@@ -1,17 +1,16 @@
 package game.levels;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import game.actors.Ennemy;
+import game.actors.Missile;
 
 public class Level {
     private String name;
     private List<Ennemy> enemies;
+    private List<Missile> missiles = new ArrayList<>();
+    private List<Missile> enemyMissiles = new ArrayList<>();
 
     public Level(String name) {
         this.name = name;
@@ -19,8 +18,27 @@ public class Level {
     }
 
     public void addEnemy(Ennemy enemy) {
+        if (!enemies.contains(enemy))
+            enemies.add(enemy);
+    }
+
+    public void removeEnemy(Ennemy enemy) {
         if (enemies.contains(enemy))
-            return;
-        enemies.add(enemy);
+            enemies.remove(enemy);
+    }
+
+    public void update() {
+        enemies.forEach(Ennemy::update);
+        missiles.forEach(Missile::update);
+        enemyMissiles.forEach(Missile::update);
+    }
+
+    public void draw() {
+        missiles.forEach(Missile::draw);
+    }
+
+    public void addMissile(Missile missile) {
+        if (!missiles.contains(missile))
+            missiles.add(missile);
     }
 }

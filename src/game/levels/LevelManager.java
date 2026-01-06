@@ -9,10 +9,13 @@ import game.actors.Bee;
 import game.actors.Boss;
 import game.actors.Butterfly;
 import game.actors.Ennemy;
+import game.actors.Missile;
 import game.actors.Moth;
 import utils.Vector2;
 
 public class LevelManager {
+    private static Level currentLevel = null;
+
     public static Level loadLevel(String level) {
         File file = new File("ressources/levels/" + level + ".lvl");
         if (!file.exists())
@@ -55,5 +58,21 @@ public class LevelManager {
             default:
                 return null;
         }
+    }
+
+    public static void update() {
+        currentLevel.update();
+    }
+
+    public static void draw() {
+        currentLevel.draw();
+    }
+
+    public static void start() {
+        currentLevel = loadLevel("level1");
+    }
+
+    public static void addMissile(Missile missile) {
+        currentLevel.addMissile(missile);
     }
 }

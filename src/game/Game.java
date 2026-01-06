@@ -19,10 +19,7 @@ import utils.Vector2;
 public class Game {
     public static int SCREEN_WIDTH = 800;
     public static int SCREEN_HEIGHT = 800;
-    public Player player; // Jouer, seul éléments actuellement dans notre jeu
-    public static List<Missile> missiles = new ArrayList<>();
-    public static List<Ennemy> enemies = new ArrayList<>();
-    public static List<Vector2> enemyMissiles = new ArrayList<>();
+    public Player player;
     public static int time;
     public Ennemy ennemy1;
 
@@ -40,7 +37,7 @@ public class Game {
     private void init() {
         StdDraw.setCanvasSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         StdDraw.enableDoubleBuffering();
-        LevelManager.loadLevel("level1");
+        LevelManager.start();
     }
 
     /**
@@ -80,7 +77,7 @@ public class Game {
         StdDraw.setPenColor(Color.BLACK);
 
         StdDraw.filledRectangle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-        missiles.forEach(Missile::draw);
+        LevelManager.draw();
         player.draw();
 
     }
@@ -90,8 +87,7 @@ public class Game {
      */
 
     private void update() {
+        LevelManager.update();
         player.update();
-        enemies.forEach(Ennemy::update);
-        missiles.forEach(Missile::update);
     }
 }
