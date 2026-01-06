@@ -1,19 +1,29 @@
 package game.levels;
 
 import game.actors.Enemy;
+
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+
+import engine.StdDraw;
 import game.actors.Missile;
+import game.actors.Player;
+import utils.Vector2;
 
 public class Level {
     private String name;
     private List<Enemy> enemies;
-    private List<Missile> missiles = new ArrayList<>();
-    private List<Missile> enemyMissiles = new ArrayList<>();
+    private List<Missile> missiles;
+    private List<Missile> enemyMissiles;
+    private Player player;
 
     public Level(String name) {
         this.name = name;
-        this.enemies = new ArrayList<>();
+        enemies = new ArrayList<>();
+        missiles = new ArrayList<>();
+        enemyMissiles = new ArrayList<>();
+        player = new Player(new Vector2(0.5, 0.15), 0.04);
     }
 
     public void addEnemy(Enemy enemy) {
@@ -30,11 +40,22 @@ public class Level {
         enemies.forEach(Enemy::update);
         missiles.forEach(Missile::update);
         enemyMissiles.forEach(Missile::update);
+        player.update();
     }
 
     public void draw() {
         missiles.forEach(Missile::draw);
         enemies.forEach(Enemy::draw);
+        player.draw();
+
+        for (int i = 0; i < player.getLives(); i++) {
+            double x = 0.05 + i * 0.03;
+            double y = 0.05;
+            double size = 0.02;
+
+            StdDraw.setPenColor(Color.RED);
+            StdDraw.filledCircle(x, y, size / 2);
+        }
     }
 
     public void addMissile(Missile missile) {

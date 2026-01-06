@@ -14,15 +14,7 @@ import utils.Vector2;
 public class Game {
     public static int SCREEN_WIDTH = 900;
     public static int SCREEN_HEIGHT = 900;
-    public Player player;
     public static int time;
-
-    /**
-     * Créé un jeu avec tous les éléments qui le composent
-     */
-    public Game() {
-        player = new Player(new Vector2(0.5, 0.15), 0.04);
-    }
 
     /**
      * /**
@@ -75,17 +67,6 @@ public class Game {
 
         StdDraw.filledRectangle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         LevelManager.draw();
-        player.draw();
-
-        for (int i = 0; i < player.getLives(); i++) {
-            double x = 0.05 + i * 0.03;
-            double y = 0.05;
-            double size = 0.02;
-
-            StdDraw.setPenColor(Color.RED);
-            StdDraw.filledCircle(x, y, size / 2);
-        }
-
     }
 
     /**
@@ -94,6 +75,5 @@ public class Game {
 
     private void update() {
         LevelManager.update();
-        player.update();
     }
 }
