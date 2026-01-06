@@ -1,6 +1,7 @@
 package game;
 
 import engine.StdDraw;
+import game.actors.Life;
 import game.actors.Player;
 import game.levels.LevelManager;
 import java.awt.Color;
@@ -15,6 +16,7 @@ public class Game {
     public static int SCREEN_WIDTH = 900;
     public static int SCREEN_HEIGHT = 900;
     public Player player;
+    public Life life;
     public static int time;
 
     /**
@@ -22,6 +24,8 @@ public class Game {
      */
     public Game() {
         player = new Player(new Vector2(0.5, 0.15), 0.04);
+        life = new Life(new Vector2(0.2, 0.15), 0.04);
+ 
     }
 
     /**
@@ -78,12 +82,10 @@ public class Game {
         player.draw();
 
         for (int i = 0; i < player.getLives(); i++) {
-            double x = 0.05 + i * 0.03;
-            double y = 0.05;
-            double size = 0.02;
+      
 
-            StdDraw.setPenColor(Color.RED);
-            StdDraw.filledCircle(x, y, size / 2);
+            life.draw();
+  
         }
       
              
