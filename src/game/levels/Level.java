@@ -1,5 +1,6 @@
 package game.levels;
 
+import engine.StdDraw;
 import game.Game;
 import game.actors.Enemy;
 import game.actors.Life;
@@ -29,6 +30,7 @@ public class Level {
         playerLives.add(new Life(new Vector2(0.05, 0.1), 0.04));
         playerLives.add(new Life(new Vector2(0.1, 0.1), 0.04));
         playerLives.add(new Life(new Vector2(0.15, 0.1), 0.04));
+      
     }
 
     public void addEnemy(Enemy enemy) {
@@ -62,10 +64,37 @@ public class Level {
         enemyMissiles.forEach(Missile::draw);
         enemies.forEach(Enemy::draw);
         player.draw();
-
+          
+      setTargetPositionx();
+     
         for (Life elem : playerLives) {
             elem.draw();
         }
+    }
+
+    public void  setTargetPositionx() {
+          boolean goright = true;
+          for(int i = 0; i < enemies.size(); i++) {
+            double x = enemies.get(i).getTargetPosition().x();
+
+
+            if(goright) {
+                  enemies.get(i).setTargetPosition(new Vector2(x += 0.001,  enemies.get(i).getTargetPosition().y()));
+                    if(x >= 0.9) {
+                        goright = false;
+                    }
+            } else
+            {
+                  enemies.get(i).setTargetPosition(new Vector2(x -= 0.001,  enemies.get(i).getTargetPosition().y()));
+                  if(x <= 0.1) {
+                        goright = false;
+                    }
+            }
+           
+        
+             
+          }
+ 
     }
 
     public void addPlayerMissile(Missile missile) {

@@ -12,6 +12,7 @@ import utils.Vector2;
 public abstract class Enemy extends Entity {
     protected int points;
     protected double nextAttackTime;
+    protected boolean movingRight = true;
 
     /**
      * Créer un enemie
@@ -62,9 +63,13 @@ public abstract class Enemy extends Entity {
         double newX = targetPosition.x();
         double newY = targetPosition.y();
         
+
+ 
+
+       
         // L'enemie peut pas attaquer s'il y a un allié en dessous
         canAttack = !hasAllyBelow();
-
+        
         if (canAttack && Game.time > nextAttackTime) {
             attack();
 
@@ -75,8 +80,11 @@ public abstract class Enemy extends Entity {
         newTargetPos.clampToBoundBox(
                 new Vector2(size / 2, size / 2),
                 new Vector2(1 - size / 2, 1 - size / 2));
-
+        
+   
         setTargetPosition(newTargetPos);
+
+       
         super.update();
     }
 }
