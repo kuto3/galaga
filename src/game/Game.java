@@ -89,7 +89,7 @@ public class Game {
 
         StdDraw.setPenColor(StdDraw.RED);
         StdDraw.setFont(new Font("Arial", Font.BOLD, 24));
-        StdDraw.text(0.5, 0.95, "GALAGA ");
+      
         StdDraw.text(0.1, 0.95, "SCORE: "); // Coordonnées normalisées
     }
 
