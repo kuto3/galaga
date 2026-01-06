@@ -1,12 +1,10 @@
 package game;
 
 import engine.StdDraw;
-import game.actors.Life;
 import game.actors.Player;
 import game.levels.LevelManager;
 import java.awt.Color;
 import utils.Vector2;
-
 /**
  * Classe du jeu principal.
  * Gère la création de l'espace de jeu et la boucle de jeu en temps réel.
@@ -15,7 +13,7 @@ public class Game {
     public static int SCREEN_WIDTH = 900;
     public static int SCREEN_HEIGHT = 900;
     public Player player;
-    public Life life;
+ 
     public static int time;
 
     /**
@@ -23,7 +21,8 @@ public class Game {
      */
     public Game() {
         player = new Player(new Vector2(0.5, 0.15), 0.04);
-        life = new Life(new Vector2(0.2, 0.15), 0.04);
+       
+        
     }
 
     /**
@@ -74,9 +73,10 @@ public class Game {
         LevelManager.draw();
         player.draw();
 
-        for (int i = 0; i < player.getLives(); i++) {
-            life.draw();
-        }
+   
+           
+    
+ 
 
         InterfaceManager.draw();
     }
