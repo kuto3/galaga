@@ -16,7 +16,7 @@ public class Game {
     public static int time;
     private static boolean gameOver = false;
     public int highscore = 0;
-
+    
     /**
      * /**
      * Initialise l'espace de jeu

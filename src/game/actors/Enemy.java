@@ -60,7 +60,7 @@ public abstract class Enemy extends Entity {
     public void update() {
         double newX = targetPosition.x();
         double newY = targetPosition.y();
-
+        
         // L'enemie peut pas attaquer s'il y a un allié en dessous
         canAttack = !hasAllyBelow();
 
