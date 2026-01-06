@@ -17,8 +17,8 @@ import utils.Vector2;
  * Gère la création de l'espace de jeu et la boucle de jeu en temps réel.
  */
 public class Game {
-    public static int SCREEN_WIDTH = 800;
-    public static int SCREEN_HEIGHT = 800;
+    public static int SCREEN_WIDTH = 900;
+    public static int SCREEN_HEIGHT = 900;
     public Player player; // Jouer, seul éléments actuellement dans notre jeu
     public static List<Missile> missiles = new ArrayList<>();
     public static List<Ennemy> enemies = new ArrayList<>();
@@ -55,19 +55,42 @@ public class Game {
 
             update(); // on met a jour les attributs de chaque éléments
             draw(); // on dessine chaques éléments
+            
             StdDraw.setPenColor(StdDraw.RED);
             StdDraw.setFont(new Font("Arial", Font.BOLD, 24));
             StdDraw.text(0.5, 0.95, "GALAGA ");
             StdDraw.text(0.1, 0.95, "SCORE: "); // Coordonnées normalisées
             StdDraw.show(); // on montre l'interface
             StdDraw.pause(5); // on attend 10 milisecondes avant de recommencer
+            isEnnemyDead();
             time++;
         }
     }
+ 
 
     public void LaunchLevel(Level level) {
         enemies = level.getEnemy();
   
+    }
+
+    public void isEnnemyDead() {
+        missiles.forEach(
+
+            missile -> {
+                enemies.forEach(
+                    ennemy -> {
+                        if (distanceOf(missile.getPosition() , ennemy.getPosition()) < 0.5) {
+                            enemies.remove(ennemy);
+                            missiles.remove(missile);
+                        }
+                    }
+                );
+            }
+        );
+    }
+
+    public double distanceOf(Vector2 a, Vector2 b) {
+        return (double) Math.sqrt(Math.pow(b.x() - a.x(), 2) + Math.pow(b.y() - a.y(), 2));
     }
 
     /**
@@ -88,6 +111,7 @@ public class Game {
         StdDraw.filledRectangle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         missiles.forEach(Missile::draw);
         player.draw();
+        enemies.forEach(Ennemy::draw);
 
     }
 
