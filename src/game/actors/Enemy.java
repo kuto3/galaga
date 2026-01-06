@@ -13,6 +13,7 @@ public abstract class Enemy extends Entity {
     protected int points;
     protected double nextAttackTime;
     protected boolean movingRight = true;
+    protected Vector2 startingPosition;
 
     /**
      * Créer un enemie
@@ -29,6 +30,7 @@ public abstract class Enemy extends Entity {
             int attackCooldown) {
         super(pos, health, 1, speed, sprite, size, lerpSpeed, false, attackCooldown);
         this.points = points;
+        this.startingPosition = pos;
     }
 
     public int getPoints() {
@@ -59,18 +61,20 @@ public abstract class Enemy extends Entity {
 
     @Override
     public void update() {
-        double newX = targetPosition.x();
-        double newY = targetPosition.y();
-
         // L'enemie peut pas attaquer s'il y a un allié en dessous
         canAttack = !hasAllyBelow();
 
-        if (canAttack && Game.time > nextAttackTime) {
+        if (Game.time % 500 == 0)
+            movingRight = !movingRight;
+
+        if (canAttack && Game.time > nextAttackTime)
             attack();
-        }
+
+        Vector2 newTargetPos = new Vector2(
+                startingPos.x() + (movingRight ? 0.04 : -0.04),
+                targetPosition.y());
 
         // On plafone la nouvelle position dans les limites de l'écran
-        var newTargetPos = new Vector2(newX, newY);
         newTargetPos.clampToBoundBox(
                 new Vector2(size / 2, size / 2),
                 new Vector2(1 - size / 2, 1 - size / 2));

@@ -65,33 +65,33 @@ public class Level {
         player.draw();
         enemyMissiles.forEach(Missile::draw);
 
-        setTargetPositionx();
+        // setTargetPositionx();
 
         for (Life elem : playerLives) {
             elem.draw();
         }
     }
 
-    public void setTargetPositionx() {
-        boolean goright = true;
-        for (int i = 0; i < enemies.size(); i++) {
-            double x = enemies.get(i).getTargetPosition().x();
+    // public void setTargetPositionx() {
+    // boolean goright = true;
+    // enemies.forEach(enemy -> {
+    // double x = enemy.getTargetPosition().x();
 
-            if (goright) {
-                enemies.get(i).setTargetPosition(new Vector2(x += 0.001, enemies.get(i).getTargetPosition().y()));
-                if (x >= 0.9) {
-                    goright = false;
-                }
-            } else {
-                enemies.get(i).setTargetPosition(new Vector2(x -= 0.001, enemies.get(i).getTargetPosition().y()));
-                if (x <= 0.1) {
-                    goright = false;
-                }
-            }
-
-        }
-
-    }
+    // if (goright) {
+    // enemy.setTargetPosition(new Vector2(x += 0.001,
+    // enemy.getTargetPosition().y()));
+    // if (x >= 0.9) {
+    // goright = false;
+    // }
+    // } else {
+    // enemy.setTargetPosition(new Vector2(x -= 0.001,
+    // enemy.getTargetPosition().y()));
+    // if (x <= 0.1) {
+    // goright = false;
+    // }
+    // }
+    // });
+    // }
 
     public void addPlayerMissile(Missile missile) {
         if (!missiles.contains(missile))

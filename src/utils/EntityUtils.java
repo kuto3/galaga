@@ -9,10 +9,9 @@ import java.io.IOException;
 public class EntityUtils {
     public static Color[][] loadSpriteInfo(String sprite) {
         File file = new File("ressources/sprites/" + sprite + ".spr");
-         
+
         if (!file.exists())
             return null;
-        
 
         try (BufferedReader reader = new BufferedReader(
                 new FileReader(file))) {
