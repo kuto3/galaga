@@ -17,7 +17,7 @@ public class Life extends Entity {
      * @param length           largeur du joueur
      */
     public Life(Vector2 startingPosition, double length) {
-        super(startingPosition, 1, 3, 0.02, "ship", length, 1);
+        super(startingPosition, 1, 1, 0.02, "ship", length, 1, true);
         this.length = length;
     }
 
@@ -29,7 +29,6 @@ public class Life extends Entity {
         double newX = targetPosition.x();
         double newY = targetPosition.y();
 
- 
         // On plafone la nouvelle position dans les limites de l'écran
         var newTargetPos = new Vector2(newX, newY);
         newTargetPos.clampToBoundBox(
