@@ -57,7 +57,7 @@ public class Game {
             StdDraw.show(); // on montre l'interface
             StdDraw.pause(10); // on attend 10 milisecondes avant de recommencer
             LevelManager.isEnemyDead();
-  
+
             time++;
         }
     }
@@ -87,9 +87,7 @@ public class Game {
             life.draw();
   
         }
-      
-             
-          
+
     }
 
     /**
