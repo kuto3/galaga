@@ -28,8 +28,8 @@ public class Vector2 {
         return x > 0 && x < box.x && y > 0 && y < box.y;
     }
 
-    public boolean isInBoundBox(Vector2 a, Vector2 b) {
-        return x > a.x && x < b.x && y > a.y && y < b.y;
+    public boolean isInBoundBox(Vector2 minBox, Vector2 maxBox) {
+        return x >= minBox.x && x <= maxBox.x && y >= minBox.y && y <= maxBox.y;
     }
 
     public void clampToBoundBox(Vector2 box) {

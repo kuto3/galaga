@@ -15,10 +15,7 @@ public class Level {
     private List<Enemy> enemies;
     private List<Missile> missiles;
     private List<Missile> enemyMissiles;
-    Life life1 = new Life(new Vector2(0.05, 0.1), 0.04);
-    Life life2 = new Life(new Vector2(0.1, 0.1), 0.04);
-    Life life3 = new Life(new Vector2(0.15, 0.1), 0.04);
-    List<Life> lives = List.of(life1, life2, life3);
+    private List<Life> playerLives = new ArrayList<>();
     private Player player;
     private double formationSpeed;
 
@@ -29,6 +26,9 @@ public class Level {
         enemyMissiles = new ArrayList<>();
         player = new Player(new Vector2(0.5, 0.15), 0.04, lives, attackSpeed);
         formationSpeed = speed;
+        playerLives.add(new Life(new Vector2(0.05, 0.1), 0.04));
+        playerLives.add(new Life(new Vector2(0.1, 0.1), 0.04));
+        playerLives.add(new Life(new Vector2(0.15, 0.1), 0.04));
     }
 
     public void addEnemy(Enemy enemy) {
@@ -59,10 +59,11 @@ public class Level {
 
     public void draw() {
         missiles.forEach(Missile::draw);
+        enemyMissiles.forEach(Missile::draw);
         enemies.forEach(Enemy::draw);
         player.draw();
 
-        for (Life elem : lives) {
+        for (Life elem : playerLives) {
             elem.draw();
         }
     }
@@ -87,13 +88,16 @@ public class Level {
 
     public boolean enemyHasAllyBelow(Enemy enemy) {
         for (var ally : enemies) {
-            var box = enemy.getPosition().mul(new Vector2(1, 5)).sub(new Vector2(0, enemy.getSize() / 2));
+            var pos = enemy.getPosition();
+            var lineBelow = new Vector2(pos.x(), pos.y() - enemy.getSize());
             var offset = new Vector2(0.01, 0);
 
-            if (ally != enemy && ally.getPosition().isInBoundBox(
-                    box.sub(offset),
-                    box.add(offset)))
+            var min = new Vector2(lineBelow.x(), lineBelow.y()).sub(offset);
+            var max = new Vector2(lineBelow.x(), lineBelow.y()).add(offset);
+
+            if (ally != enemy && ally.getPosition().isInBoundBox(min, max)) {
                 return true;
+            }
         }
         return false;
     }
@@ -101,6 +105,7 @@ public class Level {
     public void checkCollisions() {
         var enemiesToRemove = new ArrayList<Enemy>();
         var missilesToRemove = new ArrayList<Missile>();
+        var enemyMissilesToRemove = new ArrayList<Missile>();
 
         // On check et stock les missiles et enemies qui sont en contact
         missiles.forEach(missile -> {
@@ -112,6 +117,15 @@ public class Level {
             });
         });
 
+        enemyMissiles.forEach(missile -> {
+            if (missile.getPosition().distanceOf(player.getPosition()) < 0.05) {
+                enemyMissilesToRemove.add(missile);
+                player.takeDamage(1);
+                if (!playerLives.isEmpty())
+                    playerLives.removeLast();
+            }
+        });
+
         // Et on leur enlève un pv
         enemiesToRemove.forEach(enemy -> {
             enemy.takeDamage(1);
@@ -121,6 +135,7 @@ public class Level {
             }
         });
         missilesToRemove.forEach(missile -> missiles.remove(missile));
+        enemyMissilesToRemove.forEach(missile -> enemyMissiles.remove(missile));
     }
 
 }

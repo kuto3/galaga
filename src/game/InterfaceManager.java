@@ -2,9 +2,6 @@ package game;
 
 import engine.StdDraw;
 import java.awt.Font;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 public class InterfaceManager {
     private static int score = 0;

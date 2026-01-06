@@ -37,6 +37,10 @@ public class Player extends Entity {
         }
     }
 
+    public void onTakeDamageAnimation() {
+
+    }
+
     /**
      *
      * Met à jour la position du joueur en fonction des touches préssé.

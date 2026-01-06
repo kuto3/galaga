@@ -41,6 +41,7 @@ public abstract class Enemy extends Entity {
     }
 
     public void shoot() {
+        System.out.println(position.toString() + ", " + canAttack);
         if (isAlive() && canAttack) {
             Missile missile = new Missile(position, 0.01, false);
             LevelManager.addEnemyMissile(missile);
@@ -66,9 +67,9 @@ public abstract class Enemy extends Entity {
 
         if (canAttack && Game.time > nextAttackTime) {
             attack();
-        
+
         }
-        
+
         // On plafone la nouvelle position dans les limites de l'écran
         var newTargetPos = new Vector2(newX, newY);
         newTargetPos.clampToBoundBox(
