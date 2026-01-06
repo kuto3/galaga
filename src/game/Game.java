@@ -10,8 +10,8 @@ import java.awt.Color;
  * Gère la création de l'espace de jeu et la boucle de jeu en temps réel.
  */
 public class Game {
-    public static int SCREEN_WIDTH = 1200;
-    public static int SCREEN_HEIGHT = 1200;
+    public static int SCREEN_WIDTH = 1000;
+    public static int SCREEN_HEIGHT = 1000;
 
     public static int time;
     private boolean gameOver = false;
@@ -91,11 +91,10 @@ public class Game {
                 gameOver = true;
 
             }
-
         }
         if (StdDraw.isKeyPressed(27) && gameOver) {
             gameOver = false;
-            init();
+            LevelManager.start();
         }
     }
 }
