@@ -17,6 +17,7 @@ public class Level {
     private List<Missile> missiles;
     private List<Missile> enemyMissiles;
     private Player player;
+    private int score;
 
     public Level(String name) {
         this.name = name;
@@ -24,6 +25,7 @@ public class Level {
         missiles = new ArrayList<>();
         enemyMissiles = new ArrayList<>();
         player = new Player(new Vector2(0.5, 0.15), 0.04);
+        score = 0;
     }
 
     public void addEnemy(Enemy enemy) {

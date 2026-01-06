@@ -25,7 +25,6 @@ public class Game {
     public Game() {
         player = new Player(new Vector2(0.5, 0.15), 0.04);
         life = new Life(new Vector2(0.2, 0.15), 0.04);
-
     }
 
     /**
