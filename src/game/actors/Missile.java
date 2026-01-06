@@ -10,26 +10,19 @@ import utils.EntityUtils;
 
 public class Missile {
     private Vector2 position;
-    protected int lives;
-    protected double speed;
-    protected double lerpSpeed;
+    private double speed;
+    private String sprite;
+    private double size;
+    private Color[][] spriteInfo;
+    private boolean goingUp;
 
-    protected Vector2 targetPosition;
-
-    protected boolean canAttack;
-    protected String sprite;
-    protected double size;
-
-    protected Color[][] spriteInfo;
-
-    public Missile(Vector2 pos, double speed, double lerpSpeed) {
+    public Missile(Vector2 pos, double speed, boolean goingUp) {
         this.position = pos;
         this.speed = speed;
-        this.lerpSpeed = lerpSpeed;
         this.sprite = "missile";
-        this.spriteInfo = EntityUtils.loadSpriteInfo(sprite);
         this.size = 0.009;
-
+        this.goingUp = goingUp;
+        this.spriteInfo = EntityUtils.loadSpriteInfo(sprite);
     }
 
     public void draw() {
@@ -54,12 +47,10 @@ public class Missile {
     };
 
     public void update() {
-
         double newX = position.x();
         double newY = position.y();
-        var newTargetPos = new Vector2(newX, newY + speed);
+        var newTargetPos = new Vector2(newX, newY + (goingUp ? speed : -speed));
         position = newTargetPos;
-
     }
 
     public Vector2 getPosition() {

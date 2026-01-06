@@ -1,5 +1,9 @@
 package game.actors;
 
+import java.util.Random;
+
+import game.Game;
+import game.levels.LevelManager;
 import utils.Vector2;
 
 /**
@@ -8,7 +12,8 @@ import utils.Vector2;
  * clavier.
  */
 public abstract class Enemy extends Entity {
-    private int points;
+    protected int points;
+    protected double nextAttackTime;
 
     /**
      * Créer un enemie
@@ -30,10 +35,39 @@ public abstract class Enemy extends Entity {
         return points;
     }
 
+    public abstract void attack();
+
+    public boolean hasAllyBelow() {
+        return LevelManager.enemyHasAllyBelow(this);
+    }
+
+    public void shoot() {
+        if (isAlive() && canAttack) {
+            Missile missile = new Missile(position, 0.01, false);
+            LevelManager.addEnemyMissile(missile);
+            timeLastShot = Game.time;
+        }
+    }
+
+    public void shoot(Vector2 offset) {
+        if (isAlive() && canAttack) {
+            Missile missile = new Missile(position.add(offset), 0.01, false);
+            LevelManager.addEnemyMissile(missile);
+            timeLastShot = Game.time;
+        }
+    }
+
     @Override
     public void update() {
         double newX = targetPosition.x();
         double newY = targetPosition.y();
+
+        // L'enemie peut pas attaquer s'il y a un allié en dessous
+        canAttack = !hasAllyBelow();
+
+        if (canAttack && Game.time > nextAttackTime) {
+            attack();
+        }
 
         // On plafone la nouvelle position dans les limites de l'écran
         var newTargetPos = new Vector2(newX, newY);
