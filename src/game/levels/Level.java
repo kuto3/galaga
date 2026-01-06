@@ -1,9 +1,8 @@
 package game.levels;
 
+import game.actors.Ennemy;
 import java.util.ArrayList;
 import java.util.List;
-
-import game.actors.Ennemy;
 import game.actors.Missile;
 
 public class Level {
@@ -41,4 +40,9 @@ public class Level {
         if (!missiles.contains(missile))
             missiles.add(missile);
     }
+
+    public List<Ennemy> getEnemy() {
+        return enemies;
+    }
+
 }

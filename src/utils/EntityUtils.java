@@ -1,16 +1,18 @@
 package utils;
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.awt.Color;
 
 public class EntityUtils {
     public static Color[][] loadSpriteInfo(String sprite) {
         File file = new File("ressources/sprites/" + sprite + ".spr");
+         
         if (!file.exists())
             return null;
+        
 
         try (BufferedReader reader = new BufferedReader(
                 new FileReader(file))) {

@@ -1,10 +1,9 @@
 package game.actors;
 
-import java.awt.Color;
-
 import engine.StdDraw;
-import utils.EntityUtils;
 import game.Game;
+import java.awt.Color;
+import utils.EntityUtils;
 import game.levels.LevelManager;
 import utils.Vector2;
 
@@ -34,11 +33,13 @@ public abstract class Entity {
         this.sprite = sprite;
         this.size = size;
         this.lerpSpeed = lerpSpeed;
+
         if (sprite != null)
             spriteInfo = EntityUtils.loadSpriteInfo(sprite);
     }
 
     public void draw() {
+        System.out.println("Drawing entity at position: " + spriteInfo);
         if (sprite == null || spriteInfo == null) {
             StdDraw.setPenColor(Color.RED);
             StdDraw.filledCircle(position.x(), position.y(), size / 2);
