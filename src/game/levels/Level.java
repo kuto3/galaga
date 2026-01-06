@@ -1,12 +1,9 @@
 package game.levels;
 
-import game.InterfaceManager;
+import game.Game;
 import game.actors.Enemy;
 import game.actors.Life;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import game.actors.Missile;
@@ -23,9 +20,7 @@ public class Level {
     Life life3 = new Life(new Vector2(0.15, 0.1), 0.04);
     List<Life> lives = List.of(life1, life2, life3);
     private Player player;
-    private int score;
     private double formationSpeed;
-    private int highscore;
 
     public Level(String name, int lives, double speed, int attackSpeed) {
         this.name = name;
@@ -33,10 +28,7 @@ public class Level {
         missiles = new ArrayList<>();
         enemyMissiles = new ArrayList<>();
         player = new Player(new Vector2(0.5, 0.15), 0.04, lives, attackSpeed);
-        score = 0;
         formationSpeed = speed;
-        highscore = 0;
-
     }
 
     public void addEnemy(Enemy enemy) {
@@ -89,37 +81,6 @@ public class Level {
         return enemies;
     }
 
-    public int getScore() {
-        return score;
-    }
-
-    public static int getHighScore() {
-        try {
-            String content = Files.readString(Path.of("ressources/highscore/highscore.sc"));
-            return Integer.parseInt(content.trim());
-        } catch (IOException e) {
-            System.out.println("Aucun highscore trouvé, valeur par défaut = 0");
-            return 0;
-        } catch (NumberFormatException e) {
-            System.out.println("Highscore corrompu, reset = 0");
-            return 0;
-        }
-    }
-
-    public void updateScore(int value) {
-        score = value;
-
-        if (value > getHighScore()) {
-            try {
-                Files.writeString(Path.of("ressources/highscore/highscore.sc"), String.valueOf(value));
-            } catch (IOException e) {
-                System.out.println("Impossible d'écrire le highscore : " + e.getMessage());
-            }
-
-        }
-        InterfaceManager.setScore(value);
-    }
-
     public boolean levelCleared() {
         return enemies.isEmpty() || !player.isAlive();
     }
@@ -156,7 +117,7 @@ public class Level {
             enemy.takeDamage(1);
             if (!enemy.isAlive()) {
                 enemies.remove(enemy);
-                updateScore(score + enemy.getPoints());
+                Game.updateScore(enemy.getPoints());
             }
         });
         missilesToRemove.forEach(missile -> missiles.remove(missile));

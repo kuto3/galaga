@@ -4,6 +4,9 @@ import engine.StdDraw;
 import game.levels.Level;
 import game.levels.LevelManager;
 import java.awt.Color;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * Classe du jeu principal.
@@ -15,8 +18,14 @@ public class Game {
 
     public static int time;
     private static boolean gameOver = false;
+<<<<<<< HEAD
     public int highscore = 0;
     
+=======
+    public static int highscore = loadHighsScore();
+    public static int score = 0;
+
+>>>>>>> 629c7731d323a19b0507053157d42eaabe89a55c
     /**
      * /**
      * Initialise l'espace de jeu
@@ -32,6 +41,7 @@ public class Game {
      */
     public void launch() {
         init();
+        updateScore(0);
 
         while (isGameRunning()) {
             StdDraw.clear(); // On efface tous ce qu'il y a sur l'interface
@@ -43,7 +53,37 @@ public class Game {
             StdDraw.pause(30); // on attend 30 milisecondes avant de recommencer
 
             time += 30;
+
+            try {
+                Files.writeString(Path.of("ressources/highscore/highscore.sc"), String.valueOf(highscore));
+            } catch (IOException e) {
+                System.out.println("Impossible d'écrire le highscore : " + e.getMessage());
+            }
         }
+    }
+
+    private static int loadHighsScore() {
+        try {
+            String content = Files.readString(Path.of("ressources/highscore/highscore.sc"));
+            return Integer.parseInt(content.trim());
+        } catch (IOException e) {
+            System.out.println("Aucun highscore trouvé, valeur par défaut = 0");
+            return 0;
+        } catch (NumberFormatException e) {
+            System.out.println("Highscore corrompu, reset = 0");
+            return 0;
+        }
+    }
+
+    public static void updateScore(int value) {
+        score += value;
+        highscore = Math.max(score, highscore);
+        InterfaceManager.setHighscore(highscore);
+        InterfaceManager.setScore(score);
+    }
+
+    public static void resetScore() {
+        score = 0;
     }
 
     /**
@@ -84,6 +124,7 @@ public class Game {
         if (getLevel() != null) {
             if (!getLevel().getPlayer().isAlive()) {
                 gameOver = true;
+                resetScore();
             }
         }
 
