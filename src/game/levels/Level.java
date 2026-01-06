@@ -3,6 +3,10 @@ package game.levels;
 import game.InterfaceManager;
 import game.actors.Enemy;
 import game.actors.Life;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import game.actors.Missile;
@@ -54,7 +58,7 @@ public class Level {
     public Player getPlayer() {
         return player;
     }
-
+    
     public void draw() {
         missiles.forEach(Missile::draw);
         enemies.forEach(Enemy::draw);
@@ -64,6 +68,8 @@ public class Level {
             elem.draw();
         }
     }
+
+    
 
     public void addPlayerMissile(Missile missile) {
         if (!missiles.contains(missile))
@@ -83,13 +89,33 @@ public class Level {
         return score;
     }
 
+    public static int getHighScore() {
+        try {
+            String content = Files.readString(Path.of("ressources/highscore/highscore.sc"));
+            return Integer.parseInt(content.trim());
+        } catch (IOException e) {
+            System.out.println("Aucun highscore trouvé, valeur par défaut = 0");
+            return 0;
+        } catch (NumberFormatException e) {
+            System.out.println("Highscore corrompu, reset = 0");
+            return 0;
+        }
+    }
+
+
+    
     public void updateScore(int value) {
         score = value;
-        if(value > highscore){
-            highscore = value;
-            InterfaceManager.setScore(value);
+       
+        if(value > getHighScore()){
+                try {
+                    Files.writeString(Path.of("ressources/highscore/highscore.sc"), String.valueOf(value));
+                } catch (IOException e) {
+                    System.out.println("Impossible d'écrire le highscore : " + e.getMessage());
+                }
+            
         }
-        InterfaceManager.setHighScore(value);
+      InterfaceManager.setScore(value);
     }
 
     public boolean levelCleared() {
@@ -108,7 +134,7 @@ public class Level {
         }
         return false;
     }
-
+ 
     public void checkCollisions() {
         var enemiesToRemove = new ArrayList<Enemy>();
         var missilesToRemove = new ArrayList<Missile>();
@@ -133,4 +159,5 @@ public class Level {
         });
         missilesToRemove.forEach(missile -> missiles.remove(missile));
     }
+    
 }
