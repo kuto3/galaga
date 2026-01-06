@@ -52,7 +52,7 @@ public class Game {
             StdDraw.text(0.1, 0.95, "SCORE: "); // Coordonnées normalisées
             StdDraw.show(); // on montre l'interface
             StdDraw.pause(10); // on attend 10 milisecondes avant de recommencer
-            LevelManager.isEnemyDead();
+            LevelManager.checkCollisions();
 
             time++;
         }

@@ -46,7 +46,7 @@ public class Level {
         return enemies;
     }
 
-    public void isEnnemyDead() {
+    public void checkCollisions() {
         var enemiesToRemove = new ArrayList<Enemy>();
         var missilesToRemove = new ArrayList<Missile>();
 

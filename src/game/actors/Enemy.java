@@ -22,7 +22,7 @@ public abstract class Enemy extends Entity {
      * @param points
      */
     public Enemy(Vector2 pos, int health, double speed, String sprite, double size, double lerpSpeed, int points) {
-        super(pos, health, 1, speed, sprite, size, lerpSpeed);
+        super(pos, health, 1, speed, sprite, size, lerpSpeed, false);
         this.points = points;
     }
 
