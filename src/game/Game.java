@@ -1,15 +1,15 @@
 package game;
 
 import engine.StdDraw;
+<<<<<<< HEAD
+=======
 import game.actors.Enemy;
 import game.actors.Missile;
+>>>>>>> 5938097da30b29883047686832b58fe8b2253cd1
 import game.actors.Player;
-import game.levels.Level;
 import game.levels.LevelManager;
 import java.awt.Color;
 import java.awt.Font;
-import java.util.ArrayList;
-import java.util.List;
 import utils.Vector2;
 
 /**
@@ -58,7 +58,7 @@ public class Game {
             StdDraw.show(); // on montre l'interface
             StdDraw.pause(10); // on attend 10 milisecondes avant de recommencer
             LevelManager.isEnemyDead();
-
+  
             time++;
         }
     }
@@ -81,6 +81,18 @@ public class Game {
         StdDraw.filledRectangle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         LevelManager.draw();
         player.draw();
+
+        for (int i = 0; i < player.getLives(); i++) {
+            double x = 0.05 + i * 0.03;
+            double y = 0.05;
+            double size = 0.02;
+
+            StdDraw.setPenColor(Color.RED);
+            StdDraw.filledCircle(x, y, size / 2);
+        }
+      
+             
+          
     }
 
     /**

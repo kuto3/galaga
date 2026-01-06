@@ -2,9 +2,9 @@ package game.actors;
 
 import engine.StdDraw;
 import game.Game;
+import game.levels.LevelManager;
 import java.awt.Color;
 import utils.EntityUtils;
-import game.levels.LevelManager;
 import utils.Vector2;
 
 public abstract class Entity {
@@ -58,6 +58,7 @@ public abstract class Entity {
                 StdDraw.filledSquare(x + j * pixelSize * 2, y - i * pixelSize * 2, pixelSize);
             }
         }
+ 
     };
 
     public void update() {
@@ -80,6 +81,10 @@ public abstract class Entity {
 
     public boolean isAlive() {
         return lives > 0;
+    }
+
+    public int getLives() {
+        return lives;
     }
 
     public Vector2 getPosition() {
