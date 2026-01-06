@@ -1,15 +1,10 @@
 package game;
 
 import engine.StdDraw;
-import game.actors.Ennemy;
-import game.actors.Missile;
 import game.actors.Player;
-import game.levels.Level;
 import game.levels.LevelManager;
 import java.awt.Color;
 import java.awt.Font;
-import java.util.ArrayList;
-import java.util.List;
 import utils.Vector2;
 
 /**
@@ -58,7 +53,7 @@ public class Game {
             StdDraw.show(); // on montre l'interface
             StdDraw.pause(10); // on attend 10 milisecondes avant de recommencer
             LevelManager.isEnemyDead();
-
+  
             time++;
         }
     }
