@@ -8,7 +8,7 @@ import java.io.IOException;
 import game.actors.Bee;
 import game.actors.Boss;
 import game.actors.Butterfly;
-import game.actors.Ennemy;
+import game.actors.Enemy;
 import game.actors.Missile;
 import game.actors.Moth;
 import utils.Vector2;
@@ -39,7 +39,7 @@ public class LevelManager {
         return null;
     }
 
-    public static Ennemy getEnemyFromString(String enemyString) {
+    public static Enemy getEnemyFromString(String enemyString) {
         String[] data = enemyString.split(" ");
         var position = new Vector2(Double.parseDouble(data[1]), Double.parseDouble(data[2]));
         var size = Double.parseDouble(data[3]);

@@ -1,13 +1,13 @@
 package game.levels;
 
-import game.actors.Ennemy;
+import game.actors.Enemy;
 import java.util.ArrayList;
 import java.util.List;
 import game.actors.Missile;
 
 public class Level {
     private String name;
-    private List<Ennemy> enemies;
+    private List<Enemy> enemies;
     private List<Missile> missiles = new ArrayList<>();
     private List<Missile> enemyMissiles = new ArrayList<>();
 
@@ -16,25 +16,25 @@ public class Level {
         this.enemies = new ArrayList<>();
     }
 
-    public void addEnemy(Ennemy enemy) {
+    public void addEnemy(Enemy enemy) {
         if (!enemies.contains(enemy))
             enemies.add(enemy);
     }
 
-    public void removeEnemy(Ennemy enemy) {
+    public void removeEnemy(Enemy enemy) {
         if (enemies.contains(enemy))
             enemies.remove(enemy);
     }
 
     public void update() {
-        enemies.forEach(Ennemy::update);
+        enemies.forEach(Enemy::update);
         missiles.forEach(Missile::update);
         enemyMissiles.forEach(Missile::update);
     }
 
     public void draw() {
         missiles.forEach(Missile::draw);
-        enemies.forEach(Ennemy::draw);
+        enemies.forEach(Enemy::draw);
     }
 
     public void addMissile(Missile missile) {
@@ -42,11 +42,13 @@ public class Level {
             missiles.add(missile);
     }
 
-    public List<Ennemy> getEnemy() {
+    public List<Enemy> getEnemy() {
         return enemies;
     }
 
     public void isEnnemyDead() {
+        var enemiesToRemove = new ArrayList<Enemy>();
+
         missiles.forEach(
                 missile -> {
                     enemies.forEach(
