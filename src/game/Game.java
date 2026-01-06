@@ -18,14 +18,9 @@ public class Game {
 
     public static int time;
     private static boolean gameOver = false;
-<<<<<<< HEAD
-    public int highscore = 0;
-    
-=======
     public static int highscore = loadHighsScore();
     public static int score = 0;
 
->>>>>>> 629c7731d323a19b0507053157d42eaabe89a55c
     /**
      * /**
      * Initialise l'espace de jeu
