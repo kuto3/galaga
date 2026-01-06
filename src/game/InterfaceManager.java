@@ -10,8 +10,9 @@ public class InterfaceManager {
     public static void draw() {
         StdDraw.setPenColor(StdDraw.RED);
         StdDraw.setFont(new Font("Arial", Font.BOLD, 24));
-        StdDraw.text(0.5, 0.95, "GALAGA ");
         StdDraw.text(0.1, 0.95, "SCORE: " + score); // Coordonnées normalisées
+
+        StdDraw.picture(0.5, 0.93, "ressources/logo/logo.png"); // centre de l'écran
     }
 
     public static void update() {

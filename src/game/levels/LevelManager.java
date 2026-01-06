@@ -80,8 +80,4 @@ public class LevelManager {
     public static void addMissile(Missile missile) {
         currentLevel.addMissile(missile);
     }
-
-    public static void checkCollisions() {
-        currentLevel.checkCollisions();
-    }
 }

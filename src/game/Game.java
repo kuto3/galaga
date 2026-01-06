@@ -5,7 +5,6 @@ import game.actors.Life;
 import game.actors.Player;
 import game.levels.LevelManager;
 import java.awt.Color;
-import java.awt.Font;
 import utils.Vector2;
 
 /**
@@ -46,19 +45,11 @@ public class Game {
         while (isGameRunning()) {
             StdDraw.clear(); // On efface tous ce qu'il y a sur l'interface
 
-            LevelManager.checkCollisions();
-
             update(); // on met a jour les attributs de chaque éléments
             draw(); // on dessine chaques éléments
 
-            StdDraw.setPenColor(StdDraw.RED);
-            StdDraw.setFont(new Font("Arial", Font.BOLD, 24));
-
-            StdDraw.text(0.1, 0.95, "SCORE: "); // Coordonnées normalisées
-            StdDraw.picture(0.5, 0.93, "ressources/logo/logo.png"); // centre de l'écran
             StdDraw.show(); // on montre l'interface
             StdDraw.pause(10); // on attend 10 milisecondes avant de recommencer
-            LevelManager.checkCollisions();
 
             time++;
         }
@@ -87,10 +78,7 @@ public class Game {
             life.draw();
         }
 
-        StdDraw.setPenColor(StdDraw.RED);
-        StdDraw.setFont(new Font("Arial", Font.BOLD, 24));
-
-        StdDraw.text(0.1, 0.95, "SCORE: "); // Coordonnées normalisées
+        InterfaceManager.draw();
     }
 
     /**

@@ -42,7 +42,6 @@ public abstract class Entity {
     }
 
     public void draw() {
-        System.out.println("Drawing entity at position: " + spriteInfo);
         if (sprite == null || spriteInfo == null) {
             StdDraw.setPenColor(Color.RED);
             StdDraw.filledCircle(position.x(), position.y(), size / 2);

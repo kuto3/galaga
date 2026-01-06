@@ -44,6 +44,7 @@ public class Level {
         missiles.forEach(Missile::update);
         enemyMissiles.forEach(Missile::update);
         player.update();
+        checkCollisions();
     }
 
     public void draw() {
@@ -90,7 +91,7 @@ public class Level {
         // On check et stock les missiles et enemies qui sont en contact
         missiles.forEach(missile -> {
             enemies.forEach(ennemy -> {
-                if (missile.getPosition().distanceOf(ennemy.getPosition()) < 0.1) {
+                if (missile.getPosition().distanceOf(ennemy.getPosition()) < 0.05) {
                     enemiesToRemove.add(ennemy);
                     missilesToRemove.add(missile);
                 }
