@@ -4,7 +4,7 @@ import engine.StdDraw;
 import game.actors.Player;
 import game.levels.LevelManager;
 import java.awt.Color;
-import utils.Vector2;
+
 /**
  * Classe du jeu principal.
  * Gère la création de l'espace de jeu et la boucle de jeu en temps réel.
@@ -12,17 +12,13 @@ import utils.Vector2;
 public class Game {
     public static int SCREEN_WIDTH = 900;
     public static int SCREEN_HEIGHT = 900;
-    public Player player;
- 
+
     public static int time;
 
     /**
      * Créé un jeu avec tous les éléments qui le composent
      */
     public Game() {
-        player = new Player(new Vector2(0.5, 0.15), 0.04);
-       
-        
     }
 
     /**
@@ -71,13 +67,6 @@ public class Game {
         StdDraw.filledRectangle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 
         LevelManager.draw();
-        player.draw();
-
-   
-           
-    
- 
-
         InterfaceManager.draw();
     }
 

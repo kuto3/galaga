@@ -7,7 +7,7 @@ import game.actors.Life;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
- 
+
 import engine.StdDraw;
 import game.actors.Missile;
 import game.actors.Player;
@@ -18,10 +18,10 @@ public class Level {
     private List<Enemy> enemies;
     private List<Missile> missiles;
     private List<Missile> enemyMissiles;
-     Life life1 = new Life(new Vector2(0.05, 0.1), 0.04);
-        Life life2 = new Life(new Vector2(0.1, 0.1), 0.04);
-        Life life3 = new Life(new Vector2(0.15, 0.1), 0.04);
-        List<Life> lives = List.of(life1, life2, life3);  
+    Life life1 = new Life(new Vector2(0.05, 0.1), 0.04);
+    Life life2 = new Life(new Vector2(0.1, 0.1), 0.04);
+    Life life3 = new Life(new Vector2(0.15, 0.1), 0.04);
+    List<Life> lives = List.of(life1, life2, life3);
     private Player player;
     private int score;
 
@@ -32,8 +32,8 @@ public class Level {
         enemyMissiles = new ArrayList<>();
         player = new Player(new Vector2(0.5, 0.15), 0.04);
         score = 0;
-        
-     }
+
+    }
 
     public void addEnemy(Enemy enemy) {
         if (!enemies.contains(enemy))
@@ -57,10 +57,10 @@ public class Level {
         missiles.forEach(Missile::draw);
         enemies.forEach(Enemy::draw);
         player.draw();
- 
+
         for (Life elem : lives) {
             elem.draw();
-       }
+        }
     }
 
     public void addMissile(Missile missile) {
