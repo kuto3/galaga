@@ -53,6 +53,10 @@ public class Level {
         checkCollisions();
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
     public void draw() {
         missiles.forEach(Missile::draw);
         enemies.forEach(Enemy::draw);

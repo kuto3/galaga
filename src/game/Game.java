@@ -1,9 +1,10 @@
 package game;
 
 import engine.StdDraw;
-import game.actors.Player;
+import game.levels.Level;
 import game.levels.LevelManager;
 import java.awt.Color;
+
 
 /**
  * Classe du jeu principal.
@@ -14,6 +15,8 @@ public class Game {
     public static int SCREEN_HEIGHT = 900;
 
     public static int time;
+    private boolean gameOver = false;
+
 
     /**
      * Créé un jeu avec tous les éléments qui le composent
@@ -59,13 +62,21 @@ public class Game {
         return true;
     }
 
+    private Level GetLevel() {
+        return LevelManager.getCurrentLevel();
+    }
+
     /**
      * Dessin tous les éléments du jeu
      */
     public void draw() {
         StdDraw.setPenColor(Color.BLACK);
         StdDraw.filledRectangle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-
+        if(gameOver){
+            InterfaceManager.over();
+            return;
+        }
+        
         LevelManager.draw();
         InterfaceManager.draw();
     }
@@ -77,5 +88,17 @@ public class Game {
     private void update() {
         LevelManager.update();
         InterfaceManager.update();
+         if(GetLevel() != null){
+            if(GetLevel().getPlayer().getLives() == 0 ){
+                gameOver = true;
+            
+                
+            }
+           
+        }
+        if(StdDraw.isKeyPressed(27) && gameOver){
+            gameOver = false;
+            init();
+        }
     }
 }

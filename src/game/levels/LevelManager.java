@@ -1,16 +1,15 @@
 package game.levels;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-
 import game.actors.Bee;
 import game.actors.Boss;
 import game.actors.Butterfly;
 import game.actors.Enemy;
 import game.actors.Missile;
 import game.actors.Moth;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import utils.Vector2;
 
 public class LevelManager {
@@ -21,7 +20,7 @@ public class LevelManager {
         File file = new File("ressources/levels/" + level + ".lvl");
         if (!file.exists())
             return null;
-
+        
         try (BufferedReader reader = new BufferedReader(
                 new FileReader(file))) {
             var lines = reader.lines().toArray(String[]::new);
@@ -62,6 +61,8 @@ public class LevelManager {
     }
 
     public static void update() {
+        if (currentLevel == null)
+            return;
         currentLevel.update();
         if (currentLevel.levelCleared()) {
             currentLevelValue++;
@@ -69,13 +70,20 @@ public class LevelManager {
         }
     }
 
+    public static Level getCurrentLevel() {
+        return currentLevel;
+    }
+
     public static void draw() {
+        if (currentLevel == null)
+            return;
         currentLevel.draw();
     }
 
     public static void start() {
         currentLevel = loadLevel("level" + currentLevelValue);
     }
+    
 
     public static void addMissile(Missile missile) {
         currentLevel.addMissile(missile);

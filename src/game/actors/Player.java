@@ -16,7 +16,7 @@ public class Player extends Entity {
      * @param size             largeur du joueur
      */
     public Player(Vector2 startingPosition, double size) {
-        super(startingPosition, 1, 3, 0.02, "ship", size, 1, false);
+        super(startingPosition, 1, 0, 0.02, "ship", size, 1, false);
     }
 
     /**
@@ -39,7 +39,7 @@ public class Player extends Entity {
         if (StdDraw.isKeyPressed(32)) {
             shoot();
         }
-
+ 
         // On plafone la nouvelle position dans les limites de l'écran
         var newTargetPos = new Vector2(newX, newY);
         newTargetPos.clampToBoundBox(
