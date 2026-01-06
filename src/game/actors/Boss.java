@@ -5,7 +5,7 @@ import utils.Vector2;
 /**
  * Classe Boss
  */
-public class Boss extends Ennemy {
+public class Boss extends Enemy {
     /**
      * Créer un Boss
      * 

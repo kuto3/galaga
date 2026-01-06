@@ -5,7 +5,7 @@ import utils.Vector2;
 /**
  * Classe Moth
  */
-public class Moth extends Ennemy {
+public class Moth extends Enemy {
     /**
      * Créer un Moth
      * 

@@ -5,7 +5,7 @@ import utils.Vector2;
 /**
  * Classe Bee
  */
-public class Bee extends Ennemy {
+public class Bee extends Enemy {
     /**
      * Créer un Bee
      * 

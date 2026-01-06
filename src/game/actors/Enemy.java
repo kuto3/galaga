@@ -7,7 +7,7 @@ import utils.Vector2;
  * A ce stade ce n'est qu'un point rouge qui se déplace avec les flèches du
  * clavier.
  */
-public abstract class Ennemy extends Entity {
+public abstract class Enemy extends Entity {
     private int points;
 
     /**
@@ -21,7 +21,7 @@ public abstract class Ennemy extends Entity {
      * @param lerpSpeed
      * @param points
      */
-    public Ennemy(Vector2 pos, int health, double speed, String sprite, double size, double lerpSpeed, int points) {
+    public Enemy(Vector2 pos, int health, double speed, String sprite, double size, double lerpSpeed, int points) {
         super(pos, health, 1, speed, sprite, size, lerpSpeed);
         this.points = points;
     }

@@ -1,7 +1,7 @@
 package game;
 
 import engine.StdDraw;
-import game.actors.Ennemy;
+import game.actors.Enemy;
 import game.actors.Missile;
 import game.actors.Player;
 import game.levels.Level;

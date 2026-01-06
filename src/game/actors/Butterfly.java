@@ -5,7 +5,7 @@ import utils.Vector2;
 /**
  * Classe Butterfly
  */
-public class Butterfly extends Ennemy {
+public class Butterfly extends Enemy {
     /**
      * Créer un Butterfly
      * 
