@@ -14,13 +14,7 @@ public class Game {
     public static int SCREEN_HEIGHT = 1000;
 
     public static int time;
-    private boolean gameOver = false;
-
-    /**
-     * Créé un jeu avec tous les éléments qui le composent
-     */
-    public Game() {
-    }
+    private static boolean gameOver = false;
 
     /**
      * /**
@@ -45,9 +39,9 @@ public class Game {
             draw(); // on dessine chaques éléments
 
             StdDraw.show(); // on montre l'interface
-            StdDraw.pause(10); // on attend 10 milisecondes avant de recommencer
+            StdDraw.pause(30); // on attend 30 milisecondes avant de recommencer
 
-            time++;
+            time += 30;
         }
     }
 
@@ -60,7 +54,7 @@ public class Game {
         return true;
     }
 
-    private Level GetLevel() {
+    private Level getLevel() {
         return LevelManager.getCurrentLevel();
     }
 
@@ -70,6 +64,7 @@ public class Game {
     public void draw() {
         StdDraw.setPenColor(Color.BLACK);
         StdDraw.filledRectangle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+
         if (gameOver) {
             InterfaceManager.over();
             return;
@@ -82,19 +77,18 @@ public class Game {
     /**
      * Met a jour les attributs de tous les éléments du jeu
      */
-
     private void update() {
         LevelManager.update();
         InterfaceManager.update();
-        if (GetLevel() != null) {
-            if (GetLevel().getPlayer().getLives() == 0) {
+        if (getLevel() != null) {
+            if (!getLevel().getPlayer().isAlive()) {
                 gameOver = true;
-
             }
         }
+
         if (StdDraw.isKeyPressed(27) && gameOver) {
             gameOver = false;
-            LevelManager.start();
+            LevelManager.restart();
         }
     }
 }

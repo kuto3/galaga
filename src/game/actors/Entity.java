@@ -18,12 +18,13 @@ public abstract class Entity {
     protected double size;
     protected double lerpSpeed;
     protected boolean incivible;
+    protected int attackSpeed;
 
     protected Color[][] spriteInfo;
     protected int timeLastShot;
 
     public Entity(Vector2 pos, int health, int lives, double speed, String sprite, double size, double lerpSpeed,
-            boolean incivible) {
+            boolean incivible, int attackCooldown) {
         this.startingPos = pos;
         this.position = pos;
         this.targetPosition = pos;
@@ -35,6 +36,7 @@ public abstract class Entity {
         this.size = size;
         this.lerpSpeed = lerpSpeed;
         this.incivible = incivible;
+        this.attackSpeed = attackCooldown;
 
         if (sprite != null)
             spriteInfo = EntityUtils.loadSpriteInfo(sprite);

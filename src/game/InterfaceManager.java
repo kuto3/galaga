@@ -7,8 +7,7 @@ public class InterfaceManager {
     private static int score = 0;
 
     public static void draw() {
-  
-      
+
         StdDraw.setPenColor(StdDraw.RED);
         StdDraw.setFont(new Font("Arial", Font.BOLD, 24));
         StdDraw.text(0.1, 0.95, "SCORE: " + score); // Coordonnées normalisées
@@ -17,14 +16,10 @@ public class InterfaceManager {
     }
 
     public static void over() {
-            StdDraw.setPenColor(StdDraw.RED);
-            StdDraw.setFont(new Font("Arial", Font.BOLD, 48));
-            StdDraw.text(0.5, 0.5, "GAME OVER");
-            StdDraw.text(0.5, 0.4, "appuyez sur Esc pour recommencer");
-        
-        
-        
-               
+        StdDraw.setPenColor(StdDraw.RED);
+        StdDraw.setFont(new Font("Arial", Font.BOLD, 48));
+        StdDraw.text(0.5, 0.5, "GAME OVER");
+        StdDraw.text(0.5, 0.4, "Appuyez sur Esc pour recommencer");
     }
 
     public static void update() {

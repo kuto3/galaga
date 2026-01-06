@@ -17,8 +17,8 @@ public class Player extends Entity {
      * @param startingPosition postion initiale du joueur
      * @param size             largeur du joueur
      */
-    public Player(Vector2 startingPosition, double size) {
-        super(startingPosition, 1, 0, 0.02, "ship", size, 1, false);
+    public Player(Vector2 startingPosition, double size, int lives, int attackSpeed) {
+        super(startingPosition, 1, lives, 0.02, "ship", size, 1, false, attackSpeed);
     }
 
     public void shoot() {
@@ -56,10 +56,10 @@ public class Player extends Entity {
         }
 
         if (StdDraw.isKeyPressed(32)) {
-            if (Game.time - timeLastShot > 20)
+            if (Game.time - timeLastShot > attackSpeed)
                 shoot();
         }
- 
+
         // On plafone la nouvelle position dans les limites de l'écran
         var newTargetPos = new Vector2(newX, newY);
         newTargetPos.clampToBoundBox(

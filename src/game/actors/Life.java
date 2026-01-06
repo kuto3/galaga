@@ -17,7 +17,7 @@ public class Life extends Entity {
      * @param length           largeur du joueur
      */
     public Life(Vector2 startingPosition, double length) {
-        super(startingPosition, 1, 1, 0.02, "ship", length, 1, true);
+        super(startingPosition, 1, 1, 0.02, "ship", length, 1, true, -1);
         this.length = length;
     }
 

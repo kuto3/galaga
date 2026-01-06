@@ -20,15 +20,16 @@ public class Level {
     List<Life> lives = List.of(life1, life2, life3);
     private Player player;
     private int score;
+    private double formationSpeed;
 
-    public Level(String name) {
+    public Level(String name, int lives, double speed, int attackSpeed) {
         this.name = name;
         enemies = new ArrayList<>();
         missiles = new ArrayList<>();
         enemyMissiles = new ArrayList<>();
-        player = new Player(new Vector2(0.5, 0.15), 0.04);
+        player = new Player(new Vector2(0.5, 0.15), 0.04, lives, attackSpeed);
         score = 0;
-
+        formationSpeed = speed;
     }
 
     public void addEnemy(Enemy enemy) {
@@ -39,6 +40,10 @@ public class Level {
     public void removeEnemy(Enemy enemy) {
         if (enemies.contains(enemy))
             enemies.remove(enemy);
+    }
+
+    public double getFormationSpeed() {
+        return formationSpeed;
     }
 
     public void update() {

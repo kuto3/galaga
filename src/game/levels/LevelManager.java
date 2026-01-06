@@ -19,7 +19,7 @@ public class LevelManager {
     private static int currentLevelValue = 1;
     private static int maxLevel = getAmountOfLevels();
 
-    public static Level loadLevel(String level) {
+    public static Level loadLevel(String level, int lives) {
         File file = new File("ressources/levels/" + level + ".lvl");
         if (!file.exists())
             return null;
@@ -29,10 +29,13 @@ public class LevelManager {
             var lines = reader.lines().toArray(String[]::new);
             var levelInfos = lines[0].split(" ");
             String name = levelInfos[0];
+            double formationSpeed = Double.parseDouble(levelInfos[1]);
+            int attackSpeed = Integer.parseInt(levelInfos[2]);
+            int attackIntermission = Integer.parseInt(levelInfos[3]);
 
-            var levelObj = new Level(name);
+            var levelObj = new Level(name, lives, formationSpeed, attackSpeed);
             for (int i = 1; i < lines.length; i++)
-                levelObj.addEnemy(getEnemyFromString(lines[i]));
+                levelObj.addEnemy(getEnemyFromString(lines[i], formationSpeed, attackIntermission));
 
             return levelObj;
         } catch (IOException e) {
@@ -44,14 +47,16 @@ public class LevelManager {
 
     private static int getAmountOfLevels() {
         try {
-            return Files.list(new File("ressources/levels").toPath()).toArray().length;
+            var amount = Files.list(new File("ressources/levels").toPath()).toArray().length;
+            System.out.println(amount);
+            return amount;
         } catch (Exception e) {
             System.out.println("Couldn't find files in directory: " + System.getProperty("user.dir"));
             return 0;
         }
     }
 
-    public static Enemy getEnemyFromString(String enemyString) {
+    public static Enemy getEnemyFromString(String enemyString, double moveSpeed, int attackCooldown) {
         String[] data = enemyString.split(" ");
         var position = new Vector2(Double.parseDouble(data[1]), Double.parseDouble(data[2]));
         var size = Double.parseDouble(data[3]);
@@ -60,13 +65,13 @@ public class LevelManager {
 
         switch (data[0]) {
             case "Moth":
-                return new Moth(position, speed, size, points);
+                return new Moth(position, speed, size, points, attackCooldown);
             case "Butterfly":
-                return new Butterfly(position, speed, size, points);
+                return new Butterfly(position, speed, size, points, attackCooldown);
             case "Bee":
-                return new Bee(position, speed, size, points);
+                return new Bee(position, speed, size, points, attackCooldown);
             case "Boss":
-                return new Boss(position, speed, size, points);
+                return new Boss(position, speed, size, points, attackCooldown);
             default:
                 return null;
         }
@@ -75,19 +80,24 @@ public class LevelManager {
     public static void update() {
         if (currentLevel == null)
             return;
+
         currentLevel.update();
+
         if (currentLevel.levelCleared()) {
             currentLevelValue++;
-            if (currentLevelValue >= maxLevel) {
-                System.out.println("Vous avez gagné!");
+            if (currentLevelValue > maxLevel) {
                 return;
             }
-            currentLevel = loadLevel("level" + currentLevelValue);
+            currentLevel = loadLevel("level" + currentLevelValue, 3);
         }
     }
 
     public static Level getCurrentLevel() {
         return currentLevel;
+    }
+
+    public static double getFormationSpeed() {
+        return currentLevel.getFormationSpeed();
     }
 
     public static void draw() {
@@ -97,7 +107,13 @@ public class LevelManager {
     }
 
     public static void start() {
-        currentLevel = loadLevel("level" + currentLevelValue);
+        currentLevelValue = 1;
+        currentLevel = loadLevel("level" + currentLevelValue, 0);
+    }
+
+    public static void restart() {
+        currentLevelValue = 1;
+        currentLevel = loadLevel("level" + currentLevelValue, 3);
     }
 
     public static void addPlayerMissile(Missile missile) {
