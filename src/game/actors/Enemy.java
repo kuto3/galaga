@@ -12,6 +12,7 @@ import utils.Vector2;
 public abstract class Enemy extends Entity {
     protected int points;
     protected double nextAttackTime;
+    protected boolean movingRight = true;
 
     /**
      * Créer un enemie
@@ -75,6 +76,7 @@ public abstract class Enemy extends Entity {
                 new Vector2(1 - size / 2, 1 - size / 2));
 
         setTargetPosition(newTargetPos);
+
         super.update();
     }
 }
