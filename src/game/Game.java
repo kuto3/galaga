@@ -15,6 +15,7 @@ public class Game {
 
     public static int time;
     private static boolean gameOver = false;
+    public int highscore = 0;
 
     /**
      * /**
