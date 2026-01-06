@@ -58,6 +58,7 @@ public abstract class Entity {
                 StdDraw.filledSquare(x + j * pixelSize * 2, y - i * pixelSize * 2, pixelSize);
             }
         }
+ 
     };
 
     public void update() {

@@ -76,6 +76,18 @@ public class Game {
         StdDraw.filledRectangle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         LevelManager.draw();
         player.draw();
+
+        for (int i = 0; i < player.getLives(); i++) {
+            double x = 0.05 + i * 0.03;
+            double y = 0.05;
+            double size = 0.02;
+
+            StdDraw.setPenColor(Color.RED);
+            StdDraw.filledCircle(x, y, size / 2);
+        }
+      
+             
+          
     }
 
     /**
