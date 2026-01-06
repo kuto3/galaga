@@ -66,8 +66,9 @@ public abstract class Enemy extends Entity {
 
         if (canAttack && Game.time > nextAttackTime) {
             attack();
+        
         }
-
+        
         // On plafone la nouvelle position dans les limites de l'écran
         var newTargetPos = new Vector2(newX, newY);
         newTargetPos.clampToBoundBox(
