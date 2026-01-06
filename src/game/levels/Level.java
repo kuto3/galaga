@@ -20,6 +20,7 @@ public class Level {
     List<Life> lives = List.of(life1, life2, life3);
     private Player player;
     private int score;
+    private int highscore;
 
     public Level(String name) {
         this.name = name;
@@ -28,6 +29,7 @@ public class Level {
         enemyMissiles = new ArrayList<>();
         player = new Player(new Vector2(0.5, 0.15), 0.04);
         score = 0;
+        highscore = 0;
 
     }
 
@@ -83,7 +85,11 @@ public class Level {
 
     public void updateScore(int value) {
         score = value;
-        InterfaceManager.setScore(value);
+        if(value > highscore){
+            highscore = value;
+            InterfaceManager.setScore(value);
+        }
+        InterfaceManager.setHighScore(value);
     }
 
     public boolean levelCleared() {

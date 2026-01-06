@@ -5,6 +5,7 @@ import java.awt.Font;
 
 public class InterfaceManager {
     private static int score = 0;
+    private static int highscore = 0;
 
     public static void draw() {
   
@@ -12,7 +13,7 @@ public class InterfaceManager {
         StdDraw.setPenColor(StdDraw.RED);
         StdDraw.setFont(new Font("Arial", Font.BOLD, 24));
         StdDraw.text(0.1, 0.95, "SCORE: " + score); // Coordonnées normalisées
-
+        StdDraw.text(0.85, 0.95, "HIGH SCORE: " + highscore); // Coordonnées normalisées
         StdDraw.picture(0.5, 0.93, "ressources/logo/logo.png"); // centre de l'écran
     }
 
@@ -33,5 +34,9 @@ public class InterfaceManager {
 
     public static void setScore(int value) {
         score = value;
+    }
+
+      public static void setHighScore(int value) {
+        highscore = value;
     }
 }

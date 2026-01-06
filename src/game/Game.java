@@ -15,6 +15,7 @@ public class Game {
 
     public static int time;
     private boolean gameOver = false;
+    public int highscore = 0;
 
     /**
      * Créé un jeu avec tous les éléments qui le composent
