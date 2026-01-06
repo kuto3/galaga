@@ -1,6 +1,7 @@
 package game;
 
 import engine.StdDraw;
+import game.actors.Life;
 import game.actors.Player;
 import game.levels.LevelManager;
 import java.awt.Color;
@@ -14,7 +15,18 @@ import utils.Vector2;
 public class Game {
     public static int SCREEN_WIDTH = 900;
     public static int SCREEN_HEIGHT = 900;
+    public Player player;
+    public Life life;
     public static int time;
+
+    /**
+     * Créé un jeu avec tous les éléments qui le composent
+     */
+    public Game() {
+        player = new Player(new Vector2(0.5, 0.15), 0.04);
+        life = new Life(new Vector2(0.2, 0.15), 0.04);
+
+    }
 
     /**
      * /**
@@ -67,6 +79,14 @@ public class Game {
 
         StdDraw.filledRectangle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         LevelManager.draw();
+        player.draw();
+
+        for (int i = 0; i < player.getLives(); i++) {
+
+            life.draw();
+
+        }
+
     }
 
     /**
