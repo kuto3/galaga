@@ -1,15 +1,15 @@
 package game;
 
+import engine.StdDraw;
+import game.actors.Ennemy;
+import game.actors.Missile;
+import game.actors.Player;
+import game.levels.Level;
+import game.levels.LevelManager;
 import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
-
-import engine.StdDraw;
-import game.actors.Missile;
-import game.actors.Player;
-import game.levels.LevelManager;
-import game.actors.Ennemy;
 import utils.Vector2;
 
 /**
@@ -24,7 +24,7 @@ public class Game {
     public static List<Ennemy> enemies = new ArrayList<>();
     public static List<Vector2> enemyMissiles = new ArrayList<>();
     public static int time;
-    public Ennemy ennemy1;
+ 
 
     /**
      * Créé un jeu avec tous les éléments qui le composent
@@ -40,7 +40,8 @@ public class Game {
     private void init() {
         StdDraw.setCanvasSize(SCREEN_WIDTH, SCREEN_HEIGHT);
         StdDraw.enableDoubleBuffering();
-        LevelManager.loadLevel("level1");
+        Level first = LevelManager.loadLevel("level1");
+        LaunchLevel(first);
     }
 
     /**
@@ -62,6 +63,11 @@ public class Game {
             StdDraw.pause(5); // on attend 10 milisecondes avant de recommencer
             time++;
         }
+    }
+
+    public void LaunchLevel(Level level) {
+        enemies = level.getEnemy();
+  
     }
 
     /**

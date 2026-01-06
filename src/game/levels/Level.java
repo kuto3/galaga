@@ -1,13 +1,8 @@
 package game.levels;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import game.actors.Ennemy;
 import java.util.ArrayList;
 import java.util.List;
-
-import game.actors.Ennemy;
 
 public class Level {
     private String name;
@@ -23,4 +18,9 @@ public class Level {
             return;
         enemies.add(enemy);
     }
+
+    public List<Ennemy> getEnemy() {
+        return enemies;
+}
+
 }
