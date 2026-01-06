@@ -108,7 +108,7 @@ public class LevelManager {
 
     public static void start() {
         currentLevelValue = 1;
-        currentLevel = loadLevel("level" + currentLevelValue, 0);
+        currentLevel = loadLevel("level" + currentLevelValue, 3);
     }
 
     public static void restart() {

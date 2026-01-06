@@ -58,10 +58,10 @@ public class Level {
     }
 
     public void draw() {
-        missiles.forEach(Missile::draw);
-        enemyMissiles.forEach(Missile::draw);
         enemies.forEach(Enemy::draw);
+        missiles.forEach(Missile::draw);
         player.draw();
+        enemyMissiles.forEach(Missile::draw);
 
         for (Life elem : playerLives) {
             elem.draw();
@@ -89,11 +89,11 @@ public class Level {
     public boolean enemyHasAllyBelow(Enemy enemy) {
         for (var ally : enemies) {
             var pos = enemy.getPosition();
-            var lineBelow = new Vector2(pos.x(), pos.y() - enemy.getSize());
-            var offset = new Vector2(0.01, 0);
+            var lineBelow = new Vector2(pos.x(), pos.y() + enemy.getSize());
+            var offset = new Vector2(0.05, 0);
 
-            var min = new Vector2(lineBelow.x(), lineBelow.y()).sub(offset);
-            var max = new Vector2(lineBelow.x(), lineBelow.y()).add(offset);
+            var min = lineBelow.sub(offset);
+            var max = lineBelow.add(offset);
 
             if (ally != enemy && ally.getPosition().isInBoundBox(min, max)) {
                 return true;
@@ -118,7 +118,7 @@ public class Level {
         });
 
         enemyMissiles.forEach(missile -> {
-            if (missile.getPosition().distanceOf(player.getPosition()) < 0.05) {
+            if (missile.getPosition().distanceOf(player.getPosition()) < 0.03) {
                 enemyMissilesToRemove.add(missile);
                 player.takeDamage(1);
                 if (!playerLives.isEmpty())

@@ -41,9 +41,8 @@ public abstract class Enemy extends Entity {
     }
 
     public void shoot() {
-        System.out.println(position.toString() + ", " + canAttack);
         if (isAlive() && canAttack) {
-            Missile missile = new Missile(position, 0.01, false);
+            Missile missile = new Missile(position.sub(new Vector2(0.005, size)), 0.01, false);
             LevelManager.addEnemyMissile(missile);
             timeLastShot = Game.time;
         }
@@ -51,7 +50,7 @@ public abstract class Enemy extends Entity {
 
     public void shoot(Vector2 offset) {
         if (isAlive() && canAttack) {
-            Missile missile = new Missile(position.add(offset), 0.01, false);
+            Missile missile = new Missile(position.add(offset).sub(new Vector2(0.005, size)), 0.01, false);
             LevelManager.addEnemyMissile(missile);
             timeLastShot = Game.time;
         }
@@ -61,13 +60,12 @@ public abstract class Enemy extends Entity {
     public void update() {
         double newX = targetPosition.x();
         double newY = targetPosition.y();
-        
+
         // L'enemie peut pas attaquer s'il y a un allié en dessous
         canAttack = !hasAllyBelow();
 
         if (canAttack && Game.time > nextAttackTime) {
             attack();
-
         }
 
         // On plafone la nouvelle position dans les limites de l'écran

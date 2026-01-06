@@ -23,7 +23,7 @@ public class Player extends Entity {
 
     public void shoot() {
         if (isAlive() && canAttack) {
-            Missile missile = new Missile(position, 0.01, true);
+            Missile missile = new Missile(position.sub(new Vector2(0.005, 0)), 0.01, true);
             LevelManager.addPlayerMissile(missile);
             timeLastShot = Game.time;
         }
@@ -31,7 +31,7 @@ public class Player extends Entity {
 
     public void shoot(Vector2 offset) {
         if (isAlive() && canAttack) {
-            Missile missile = new Missile(position.add(offset), 0.01, true);
+            Missile missile = new Missile(position.add(offset).sub(new Vector2(0.005, 0)), 0.01, true);
             LevelManager.addPlayerMissile(missile);
             timeLastShot = Game.time;
         }

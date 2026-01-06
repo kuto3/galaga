@@ -46,28 +46,20 @@ public class Vector2 {
         return (double) Math.sqrt(Math.pow(b.x() - x, 2) + Math.pow(b.y() - y, 2));
     }
 
-    public Vector2 mul(Vector2 b) {
-        x *= b.x;
-        y *= b.y;
-        return this;
-    }
-
     public Vector2 add(Vector2 b) {
-        x += b.x;
-        y += b.y;
-        return this;
+        return new Vector2(x + b.x, y + b.y);
     }
 
     public Vector2 sub(Vector2 b) {
-        x -= b.x;
-        y -= b.y;
-        return this;
+        return new Vector2(x - b.x, y - b.y);
+    }
+
+    public Vector2 mul(Vector2 b) {
+        return new Vector2(x * b.x, y * b.y);
     }
 
     public Vector2 div(Vector2 b) {
-        x /= b.x;
-        y /= b.y;
-        return this;
+        return new Vector2(x / b.x, y / b.y);
     }
 
     @Override
