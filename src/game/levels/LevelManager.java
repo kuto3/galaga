@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
 
 import game.actors.Bee;
 import game.actors.Boss;
@@ -16,6 +17,7 @@ import utils.Vector2;
 public class LevelManager {
     private static Level currentLevel = null;
     private static int currentLevelValue = 1;
+    private static int maxLevel = getAmountOfLevels();
 
     public static Level loadLevel(String level) {
         File file = new File("ressources/levels/" + level + ".lvl");
@@ -38,6 +40,15 @@ public class LevelManager {
         }
 
         return null;
+    }
+
+    private static int getAmountOfLevels() {
+        try {
+            return Files.list(new File("ressources/levels").toPath()).toArray().length;
+        } catch (Exception e) {
+            System.out.println("Couldn't find files in directory: " + System.getProperty("user.dir"));
+            return 0;
+        }
     }
 
     public static Enemy getEnemyFromString(String enemyString) {
@@ -65,8 +76,16 @@ public class LevelManager {
         currentLevel.update();
         if (currentLevel.levelCleared()) {
             currentLevelValue++;
+            if (currentLevelValue >= maxLevel) {
+                System.out.println("Vous avez gagné!");
+                return;
+            }
             currentLevel = loadLevel("level" + currentLevelValue);
         }
+    }
+
+    public static boolean enemyHasAllyBelow(Enemy enemy) {
+        return currentLevel.enemyHasAllyBelow(enemy);
     }
 
     public static void draw() {
@@ -77,7 +96,11 @@ public class LevelManager {
         currentLevel = loadLevel("level" + currentLevelValue);
     }
 
-    public static void addMissile(Missile missile) {
-        currentLevel.addMissile(missile);
+    public static void addPlayerMissile(Missile missile) {
+        currentLevel.addPlayerMissile(missile);
+    }
+
+    public static void addEnemyMissile(Missile missile) {
+        currentLevel.addEnemyMissile(missile);
     }
 }

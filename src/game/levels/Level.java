@@ -3,12 +3,8 @@ package game.levels;
 import game.InterfaceManager;
 import game.actors.Enemy;
 import game.actors.Life;
-
-import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
-
-import engine.StdDraw;
 import game.actors.Missile;
 import game.actors.Player;
 import utils.Vector2;
@@ -63,9 +59,14 @@ public class Level {
         }
     }
 
-    public void addMissile(Missile missile) {
+    public void addPlayerMissile(Missile missile) {
         if (!missiles.contains(missile))
             missiles.add(missile);
+    }
+
+    public void addEnemyMissile(Missile missile) {
+        if (!enemyMissiles.contains(missile))
+            enemyMissiles.add(missile);
     }
 
     public List<Enemy> getEnemy() {
@@ -83,6 +84,19 @@ public class Level {
 
     public boolean levelCleared() {
         return enemies.isEmpty() || !player.isAlive();
+    }
+
+    public boolean enemyHasAllyBelow(Enemy enemy) {
+        for (var ally : enemies) {
+            var box = enemy.getPosition().mul(new Vector2(1, 5)).sub(new Vector2(0, enemy.getSize() / 2));
+            var offset = new Vector2(0.01, 0);
+
+            if (ally != enemy && ally.getPosition().isInBoundBox(
+                    box.sub(offset),
+                    box.add(offset)))
+                return true;
+        }
+        return false;
     }
 
     public void checkCollisions() {

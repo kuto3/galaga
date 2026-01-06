@@ -2,14 +2,13 @@ package game.actors;
 
 import engine.StdDraw;
 import game.Game;
-import game.levels.LevelManager;
 import java.awt.Color;
 import utils.EntityUtils;
 import utils.Vector2;
 
 public abstract class Entity {
-    private Vector2 startingPos;
-    private Vector2 position;
+    protected Vector2 startingPos;
+    protected Vector2 position;
     protected Vector2 targetPosition;
     protected int health;
     protected int lives;
@@ -21,7 +20,7 @@ public abstract class Entity {
     protected boolean incivible;
 
     protected Color[][] spriteInfo;
-    private int timeLastShot;
+    protected int timeLastShot;
 
     public Entity(Vector2 pos, int health, int lives, double speed, String sprite, double size, double lerpSpeed,
             boolean incivible) {
@@ -73,14 +72,6 @@ public abstract class Entity {
             lives--;
     }
 
-    public void shoot() {
-        if (isAlive() && canAttack && Game.time - timeLastShot > 20) {
-            Missile missile = new Missile(new Vector2(position.x(), position.y()), 0.01, 0.2);
-            LevelManager.addMissile(missile);
-            timeLastShot = Game.time;
-        }
-    }
-
     public boolean isAlive() {
         return lives > 0;
     }
@@ -90,11 +81,15 @@ public abstract class Entity {
     }
 
     public Vector2 getPosition() {
-        return position;
+        return new Vector2(position.x(), position.y());
+    }
+
+    public double getSize() {
+        return size;
     }
 
     public Vector2 getTargetPosition() {
-        return targetPosition;
+        return new Vector2(targetPosition.x(), targetPosition.y());
     }
 
     public void setTargetPosition(Vector2 pos) {

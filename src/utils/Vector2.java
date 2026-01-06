@@ -28,6 +28,10 @@ public class Vector2 {
         return x > 0 && x < box.x && y > 0 && y < box.y;
     }
 
+    public boolean isInBoundBox(Vector2 a, Vector2 b) {
+        return x > a.x && x < b.x && y > a.y && y < b.y;
+    }
+
     public void clampToBoundBox(Vector2 box) {
         x = Math.clamp(x, 0, box.x);
         y = Math.clamp(y, 0, box.y);
@@ -40,6 +44,30 @@ public class Vector2 {
 
     public double distanceOf(Vector2 b) {
         return (double) Math.sqrt(Math.pow(b.x() - x, 2) + Math.pow(b.y() - y, 2));
+    }
+
+    public Vector2 mul(Vector2 b) {
+        x *= b.x;
+        y *= b.y;
+        return this;
+    }
+
+    public Vector2 add(Vector2 b) {
+        x += b.x;
+        y += b.y;
+        return this;
+    }
+
+    public Vector2 sub(Vector2 b) {
+        x -= b.x;
+        y -= b.y;
+        return this;
+    }
+
+    public Vector2 div(Vector2 b) {
+        x /= b.x;
+        y /= b.y;
+        return this;
     }
 
     @Override

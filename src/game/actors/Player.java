@@ -1,6 +1,8 @@
 package game.actors;
 
 import engine.StdDraw;
+import game.Game;
+import game.levels.LevelManager;
 import utils.Vector2;
 
 /**
@@ -19,7 +21,24 @@ public class Player extends Entity {
         super(startingPosition, 1, 3, 0.02, "ship", size, 1, false);
     }
 
+    public void shoot() {
+        if (isAlive() && canAttack) {
+            Missile missile = new Missile(position, 0.01, true);
+            LevelManager.addPlayerMissile(missile);
+            timeLastShot = Game.time;
+        }
+    }
+
+    public void shoot(Vector2 offset) {
+        if (isAlive() && canAttack) {
+            Missile missile = new Missile(position.add(offset), 0.01, true);
+            LevelManager.addPlayerMissile(missile);
+            timeLastShot = Game.time;
+        }
+    }
+
     /**
+     *
      * Met à jour la position du joueur en fonction des touches préssé.
      */
     @Override
@@ -37,7 +56,8 @@ public class Player extends Entity {
         }
 
         if (StdDraw.isKeyPressed(32)) {
-            shoot();
+            if (Game.time - timeLastShot > 20)
+                shoot();
         }
 
         // On plafone la nouvelle position dans les limites de l'écran
