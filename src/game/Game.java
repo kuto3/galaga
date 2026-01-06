@@ -62,7 +62,10 @@ public class Game {
             StdDraw.text(0.1, 0.95, "SCORE: "); // Coordonnées normalisées
             StdDraw.show(); // on montre l'interface
             StdDraw.pause(5); // on attend 10 milisecondes avant de recommencer
-            isEnnemyDead();
+            if(time % 60 == 0){
+                  isEnnemyDead();
+            }
+           
             time++;
         }
     }
@@ -79,7 +82,7 @@ public class Game {
             missile -> {
                 enemies.forEach(
                     ennemy -> {
-                        if (distanceOf(missile.getPosition() , ennemy.getPosition()) < 0.5) {
+                        if (distanceOf(missile.getPosition() , ennemy.getPosition()) < 0.4) {
                             enemies.remove(ennemy);
                             missiles.remove(missile);
                         }
@@ -89,7 +92,7 @@ public class Game {
         );
     }
 
-    public double distanceOf(Vector2 a, Vector2 b) {
+    public double  distanceOf(Vector2 a, Vector2 b) {
         return (double) Math.sqrt(Math.pow(b.x() - a.x(), 2) + Math.pow(b.y() - a.y(), 2));
     }
 
