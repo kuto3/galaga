@@ -34,6 +34,7 @@ public class Level {
 
     public void draw() {
         missiles.forEach(Missile::draw);
+        enemies.forEach(Ennemy::draw);
     }
 
     public void addMissile(Missile missile) {
@@ -50,7 +51,7 @@ public class Level {
                 missile -> {
                     enemies.forEach(
                             ennemy -> {
-                                if (missile.getPosition().distanceOf(ennemy.getPosition()) < 0.4) {
+                                if (missile.getPosition().distanceOf(ennemy.getPosition()) < 0.1) {
                                     enemies.remove(ennemy);
                                     missiles.remove(missile);
                                 }
