@@ -10,6 +10,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+
 import utils.Vector2;
 
 public class LevelManager {
@@ -21,7 +23,7 @@ public class LevelManager {
         File file = new File("ressources/levels/" + level + ".lvl");
         if (!file.exists())
             return null;
-        
+
         try (BufferedReader reader = new BufferedReader(
                 new FileReader(file))) {
             var lines = reader.lines().toArray(String[]::new);
@@ -97,7 +99,6 @@ public class LevelManager {
     public static void start() {
         currentLevel = loadLevel("level" + currentLevelValue);
     }
-    
 
     public static void addPlayerMissile(Missile missile) {
         currentLevel.addPlayerMissile(missile);
@@ -105,5 +106,9 @@ public class LevelManager {
 
     public static void addEnemyMissile(Missile missile) {
         currentLevel.addEnemyMissile(missile);
+    }
+
+    public static boolean enemyHasAllyBelow(Enemy enemy) {
+        return currentLevel.enemyHasAllyBelow(enemy);
     }
 }

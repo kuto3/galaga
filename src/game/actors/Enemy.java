@@ -1,7 +1,5 @@
 package game.actors;
 
-import java.util.Random;
-
 import game.Game;
 import game.levels.LevelManager;
 import utils.Vector2;
