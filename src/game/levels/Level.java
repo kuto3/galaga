@@ -45,4 +45,16 @@ public class Level {
         return enemies;
     }
 
+    public void isEnnemyDead() {
+        missiles.forEach(
+                missile -> {
+                    enemies.forEach(
+                            ennemy -> {
+                                if (missile.getPosition().distanceOf(ennemy.getPosition()) < 0.4) {
+                                    enemies.remove(ennemy);
+                                    missiles.remove(missile);
+                                }
+                            });
+                });
+    }
 }

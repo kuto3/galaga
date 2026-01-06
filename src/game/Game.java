@@ -56,36 +56,11 @@ public class Game {
             StdDraw.text(0.5, 0.95, "GALAGA ");
             StdDraw.text(0.1, 0.95, "SCORE: "); // Coordonnées normalisées
             StdDraw.show(); // on montre l'interface
-            StdDraw.pause(5); // on attend 10 milisecondes avant de recommencer
-            if (time % 60 == 0) {
-                isEnnemyDead();
-            }
+            StdDraw.pause(10); // on attend 10 milisecondes avant de recommencer
+            LevelManager.isEnemyDead();
 
             time++;
         }
-    }
-
-    public void LaunchLevel(Level level) {
-        enemies = level.getEnemy();
-
-    }
-
-    public void isEnnemyDead() {
-        missiles.forEach(
-
-                missile -> {
-                    enemies.forEach(
-                            ennemy -> {
-                                if (distanceOf(missile.getPosition(), ennemy.getPosition()) < 0.4) {
-                                    enemies.remove(ennemy);
-                                    missiles.remove(missile);
-                                }
-                            });
-                });
-    }
-
-    public double distanceOf(Vector2 a, Vector2 b) {
-        return (double) Math.sqrt(Math.pow(b.x() - a.x(), 2) + Math.pow(b.y() - a.y(), 2));
     }
 
     /**
@@ -106,8 +81,6 @@ public class Game {
         StdDraw.filledRectangle(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
         LevelManager.draw();
         player.draw();
-        enemies.forEach(Ennemy::draw);
-
     }
 
     /**

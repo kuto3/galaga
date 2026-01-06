@@ -38,6 +38,10 @@ public class Vector2 {
         y = Math.clamp(y, minBox.y, maxBox.y);
     }
 
+    public double distanceOf(Vector2 b) {
+        return (double) Math.sqrt(Math.pow(b.x() - x, 2) + Math.pow(b.y() - y, 2));
+    }
+
     @Override
     public String toString() {
         return "(" + x + ", " + y + ")";
