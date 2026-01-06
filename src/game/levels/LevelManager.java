@@ -76,7 +76,7 @@ public class LevelManager {
         currentLevel.addMissile(missile);
     }
 
-    public static void isEnemyDead() {
-        currentLevel.isEnnemyDead();
+    public static void checkCollisions() {
+        currentLevel.checkCollisions();
     }
 }

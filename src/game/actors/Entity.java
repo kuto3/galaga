@@ -18,11 +18,13 @@ public abstract class Entity {
     protected String sprite;
     protected double size;
     protected double lerpSpeed;
-    protected double length;
+    protected boolean incivible;
+
     protected Color[][] spriteInfo;
     private int timeLastShot;
 
-    public Entity(Vector2 pos, int health, int lives, double speed, String sprite, double size, double lerpSpeed) {
+    public Entity(Vector2 pos, int health, int lives, double speed, String sprite, double size, double lerpSpeed,
+            boolean incivible) {
         this.startingPos = pos;
         this.position = pos;
         this.targetPosition = pos;
@@ -33,6 +35,7 @@ public abstract class Entity {
         this.sprite = sprite;
         this.size = size;
         this.lerpSpeed = lerpSpeed;
+        this.incivible = incivible;
 
         if (sprite != null)
             spriteInfo = EntityUtils.loadSpriteInfo(sprite);
@@ -49,7 +52,7 @@ public abstract class Entity {
         for (int i = 0; i < spriteInfo.length; i++) {
             var line = spriteInfo[i];
             for (int j = 0; j < line.length; j++) {
-                var pixelSize = size / 2 / Game.SCREEN_WIDTH * 100;
+                var pixelSize = size * 0.3 / Game.SCREEN_WIDTH * 100;
 
                 var x = position.x() - pixelSize * line.length / 2;
                 var y = position.y() - pixelSize * spriteInfo.length / 2;
@@ -58,7 +61,7 @@ public abstract class Entity {
                 StdDraw.filledSquare(x + j * pixelSize * 2, y - i * pixelSize * 2, pixelSize);
             }
         }
- 
+
     };
 
     public void update() {

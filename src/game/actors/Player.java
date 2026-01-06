@@ -9,17 +9,14 @@ import utils.Vector2;
  * clavier.
  */
 public class Player extends Entity {
-    private double length; // largeur du joueur
-
     /**
      * Créé un joueur.
      * 
      * @param startingPosition postion initiale du joueur
-     * @param length           largeur du joueur
+     * @param size             largeur du joueur
      */
-    public Player(Vector2 startingPosition, double length) {
-        super(startingPosition, 1, 3, 0.02, "ship", length, 1);
-        this.length = length;
+    public Player(Vector2 startingPosition, double size) {
+        super(startingPosition, 1, 3, 0.02, "ship", size, 1, false);
     }
 
     /**
@@ -41,15 +38,13 @@ public class Player extends Entity {
 
         if (StdDraw.isKeyPressed(32)) {
             shoot();
-            draw();
-
         }
 
         // On plafone la nouvelle position dans les limites de l'écran
         var newTargetPos = new Vector2(newX, newY);
         newTargetPos.clampToBoundBox(
-                new Vector2(length / 2, length / 2),
-                new Vector2(1 - length / 2, 1 - length / 2));
+                new Vector2(size / 2, size / 2),
+                new Vector2(1 - size / 2, 1 - size / 2));
 
         setTargetPosition(newTargetPos);
         super.update();
