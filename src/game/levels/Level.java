@@ -48,16 +48,24 @@ public class Level {
 
     public void isEnnemyDead() {
         var enemiesToRemove = new ArrayList<Enemy>();
+        var missilesToRemove = new ArrayList<Missile>();
 
-        missiles.forEach(
-                missile -> {
-                    enemies.forEach(
-                            ennemy -> {
-                                if (missile.getPosition().distanceOf(ennemy.getPosition()) < 0.1) {
-                                    enemies.remove(ennemy);
-                                    missiles.remove(missile);
-                                }
-                            });
-                });
+        // On check et stock les missiles et enemies qui sont en contact
+        missiles.forEach(missile -> {
+            enemies.forEach(ennemy -> {
+                if (missile.getPosition().distanceOf(ennemy.getPosition()) < 0.1) {
+                    enemiesToRemove.add(ennemy);
+                    missilesToRemove.add(missile);
+                }
+            });
+        });
+
+        // Et on leur enlève un pv
+        enemiesToRemove.forEach(enemy -> {
+            enemy.takeDamage(1);
+            if (!enemy.isAlive())
+                enemies.remove(enemy);
+        });
+        missilesToRemove.forEach(missile -> missiles.remove(missile));
     }
 }

@@ -51,8 +51,8 @@ public abstract class Entity {
             for (int j = 0; j < line.length; j++) {
                 var pixelSize = size / 2 / Game.SCREEN_WIDTH * 100;
 
-                var x = getPosition().x() - pixelSize * line.length / 2;
-                var y = getPosition().y() - pixelSize * spriteInfo.length / 2;
+                var x = position.x() - pixelSize * line.length / 2;
+                var y = position.y() - pixelSize * spriteInfo.length / 2;
 
                 StdDraw.setPenColor(line[j]);
                 StdDraw.filledSquare(x + j * pixelSize * 2, y - i * pixelSize * 2, pixelSize);
@@ -63,7 +63,12 @@ public abstract class Entity {
 
     public void update() {
         position = position.lerp(targetPosition, lerpSpeed);
+    }
 
+    public void takeDamage(int amount) {
+        health = Math.clamp(health - amount, 0, health);
+        if (health == 0)
+            lives--;
     }
 
     public void shoot() {
@@ -75,7 +80,7 @@ public abstract class Entity {
     }
 
     public boolean isAlive() {
-        return health > 0;
+        return lives > 0;
     }
 
     public int getLives() {
