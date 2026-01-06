@@ -15,6 +15,7 @@ import utils.Vector2;
 
 public class LevelManager {
     private static Level currentLevel = null;
+    private static int currentLevelValue = 1;
 
     public static Level loadLevel(String level) {
         File file = new File("ressources/levels/" + level + ".lvl");
@@ -62,6 +63,10 @@ public class LevelManager {
 
     public static void update() {
         currentLevel.update();
+        if (currentLevel.levelCleared()) {
+            currentLevelValue++;
+            currentLevel = loadLevel("level" + currentLevelValue);
+        }
     }
 
     public static void draw() {
@@ -69,7 +74,7 @@ public class LevelManager {
     }
 
     public static void start() {
-        currentLevel = loadLevel("level1");
+        currentLevel = loadLevel("level" + currentLevelValue);
     }
 
     public static void addMissile(Missile missile) {

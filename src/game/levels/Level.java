@@ -1,5 +1,6 @@
 package game.levels;
 
+import game.InterfaceManager;
 import game.actors.Enemy;
 
 import java.awt.Color;
@@ -69,6 +70,19 @@ public class Level {
         return enemies;
     }
 
+    public int getScore() {
+        return score;
+    }
+
+    public void updateScore(int value) {
+        score = value;
+        InterfaceManager.setScore(value);
+    }
+
+    public boolean levelCleared() {
+        return enemies.isEmpty() || !player.isAlive();
+    }
+
     public void checkCollisions() {
         var enemiesToRemove = new ArrayList<Enemy>();
         var missilesToRemove = new ArrayList<Missile>();
@@ -86,8 +100,10 @@ public class Level {
         // Et on leur enlève un pv
         enemiesToRemove.forEach(enemy -> {
             enemy.takeDamage(1);
-            if (!enemy.isAlive())
+            if (!enemy.isAlive()) {
                 enemies.remove(enemy);
+                updateScore(score + enemy.getPoints());
+            }
         });
         missilesToRemove.forEach(missile -> missiles.remove(missile));
     }
