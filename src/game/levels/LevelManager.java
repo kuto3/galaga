@@ -1,14 +1,5 @@
 package game.levels;
 
-<<<<<<< HEAD
-=======
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.nio.file.Files;
-
->>>>>>> 38802d4fa53648dfdcf0f1df52ece508444aae62
 import game.actors.Bee;
 import game.actors.Boss;
 import game.actors.Butterfly;
@@ -93,13 +84,8 @@ public class LevelManager {
         }
     }
 
-<<<<<<< HEAD
     public static Level getCurrentLevel() {
         return currentLevel;
-=======
-    public static boolean enemyHasAllyBelow(Enemy enemy) {
-        return currentLevel.enemyHasAllyBelow(enemy);
->>>>>>> 38802d4fa53648dfdcf0f1df52ece508444aae62
     }
 
     public static void draw() {
