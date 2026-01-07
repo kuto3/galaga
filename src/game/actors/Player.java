@@ -63,7 +63,7 @@ public class Player extends Entity {
      * 
      * - Flèche gauche (37) : déplacement à gauche
      * - Flèche droite (39) : déplacement à droite
-     * - Barre d'espace (32) : tir d'un missile
+     * - Barre espace (32) : tir d'un missile
      * 
      * La position est restreinte dans les limites de l'écran.
      */

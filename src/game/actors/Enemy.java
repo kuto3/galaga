@@ -28,12 +28,17 @@ public abstract class Enemy extends Entity {
     /**
      * Indique si l'ennemi se déplace vers la droite.
      */
-    protected boolean movingRight = true;
+    protected boolean movingRight;
 
     /**
      * Position de départ de l'ennemi.
      */
     protected Vector2 startingPosition;
+
+    /**
+     * Vitesse de départ
+     */
+    protected double startingSpeed;
 
     /**
      * Crée un ennemi avec les paramètres spécifiés.
@@ -52,6 +57,8 @@ public abstract class Enemy extends Entity {
         super(pos, health, 1, speed, sprite, size, lerpSpeed, false, attackCooldown);
         this.points = points;
         this.startingPosition = pos;
+        this.movingRight = true;
+        this.startingSpeed = speed;
     }
 
     /**
