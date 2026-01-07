@@ -206,12 +206,20 @@ public class LevelManager {
     }
 
     /**
-     * Vérifie si un ennemi a un allié en dessous de lui.
+     * Vérifie si un ennemi a un allié en dessous de lui (même colonne).
+     * 
+     * Utilisé pour empêcher les ennemis de tirer s'il y a un allié devant eux.
      * 
      * @param enemy L'ennemi à vérifier
-     * @return true s'il y a un allié directement en dessous
+     * @return true s'il y a au moins un allié directement en dessous
      */
     public static boolean enemyHasAllyBelow(Enemy enemy) {
-        return currentLevel.enemyHasAllyBelow(enemy);
+        var pos = enemy.getPosition();
+        for (var ally : currentLevel.getEnemies()) {
+            var allyPos = ally.getPosition();
+            if (Math.abs(allyPos.x() - pos.x()) < 0.05 && allyPos.y() < pos.y())
+                return true;
+        }
+        return false;
     }
 }

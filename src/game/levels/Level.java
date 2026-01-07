@@ -165,7 +165,7 @@ public class Level {
      * 
      * @return La liste des ennemis
      */
-    public List<Enemy> getEnemy() {
+    public List<Enemy> getEnemies() {
         return enemies;
     }
 
@@ -176,24 +176,6 @@ public class Level {
      */
     public boolean levelCleared() {
         return enemies.isEmpty() || !player.isAlive();
-    }
-
-    /**
-     * Vérifie si un ennemi a un allié en dessous de lui (même colonne).
-     * 
-     * Utilisé pour empêcher les ennemis de tirer s'il y a un allié devant eux.
-     * 
-     * @param enemy L'ennemi à vérifier
-     * @return true s'il y a au moins un allié directement en dessous
-     */
-    public boolean enemyHasAllyBelow(Enemy enemy) {
-        var pos = enemy.getPosition();
-        for (var ally : enemies) {
-            var allyPos = ally.getPosition();
-            if (Math.abs(allyPos.x() - pos.x()) < 0.05 && allyPos.y() < pos.y())
-                return true;
-        }
-        return false;
     }
 
     /**
