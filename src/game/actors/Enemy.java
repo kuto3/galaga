@@ -28,6 +28,21 @@ public abstract class Enemy extends Entity {
     protected double nextAttackTime;
 
     /**
+     * Durée de l'attaque. -1 pour infinie.
+     */
+    protected double attackDuration;
+
+    /**
+     * Moment de l'arrêt de l'attaque
+     */
+    protected double attackingStopTime;
+
+    /**
+     * Si le monstre attaque, il romp la formation
+     */
+    protected boolean isAttacking;
+
+    /**
      * Indique si l'ennemi se déplace vers la droite.
      */
     protected boolean movingRight;
@@ -121,13 +136,20 @@ public abstract class Enemy extends Entity {
             movingRight = !movingRight;
 
         if (canAttack && Game.time > nextAttackTime) {
+            isAttacking = true;
+            attackingStopTime = attackDuration > 0 ? Game.time + attackDuration : -1;
             attack();
-            nextAttackTime = Game.time + new Random().nextDouble(attackSpeed, attackSpeed + 5);
+            nextAttackTime = Game.time + attackSpeed + new Random().nextDouble(10) * 100;
         }
 
-        Vector2 newTargetPos = new Vector2(
-                startingPos.x() + (movingRight ? 0.04 : -0.04),
-                targetPosition.y());
+        if (isAttacking && Game.time > attackingStopTime) {
+            isAttacking = false;
+        }
+
+        Vector2 newTargetPos = isAttacking ? targetPosition
+                : new Vector2(
+                        startingPos.x() + (movingRight ? 0.04 : -0.04),
+                        targetPosition.y());
 
         // On plafone la nouvelle position dans les limites de l'écran
         newTargetPos.clampToBoundBox(

@@ -33,6 +33,7 @@ public class Bee extends Enemy {
      */
     @Override
     public void attack() {
-        shoot();
+        speed = startingSpeed;
+        setTargetPosition();
     }
 }
