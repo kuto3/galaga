@@ -3,18 +3,25 @@ package game.actors;
 import utils.Vector2;
 
 /**
- * Classe représentant le jouuer.
- * A ce stade ce n'est qu'un point rouge qui se déplace avec les flèches du
- * clavier.
+ * Classe représentant une vie du joueur affichée à l'écran.
+ * 
+ * Les vies sont des entités invincibles affichées en bas de l'écran
+ * pour montrer le nombre de vies restantes au joueur.
+ * 
+ * @version 1.0
  */
 public class Life extends Entity {
-    private double length; // largeur du joueur
 
     /**
-     * Créé un joueur.
+     * Largeur de la vie affichée.
+     */
+    private double length;
+
+    /**
+     * Crée une vie avec les paramètres spécifiés.
      * 
-     * @param startingPosition postion initiale du joueur
-     * @param length           largeur du joueur
+     * @param startingPosition Position initiale de la vie
+     * @param length           Largeur de la vie
      */
     public Life(Vector2 startingPosition, double length) {
         super(startingPosition, 1, 1, 0.02, "ship", length, 1, true, -1);
@@ -22,7 +29,9 @@ public class Life extends Entity {
     }
 
     /**
-     * Met à jour la position du joueur en fonction des touches préssé.
+     * Met à jour la position de la vie.
+     * 
+     * Restreint la position dans les limites de l'écran.
      */
     @Override
     public void update() {

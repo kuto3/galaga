@@ -5,26 +5,47 @@ import game.levels.LevelManager;
 import utils.Vector2;
 
 /**
- * Classe représentant le jouuer.
- * A ce stade ce n'est qu'un point rouge qui se déplace avec les flèches du
- * clavier.
+ * Classe abstraite représentant un ennemi du jeu.
+ * 
+ * Un ennemi est une entité qui attaque le joueur et donne des points lorsqu'il
+ * est détruit.
+ * Les ennemis se déplacent en formation et peuvent tirer des missiles.
+ * 
+ * @version 1.0
  */
 public abstract class Enemy extends Entity {
+
+    /**
+     * Nombre de points accordés quand cet ennemi est détruit.
+     */
     protected int points;
+
+    /**
+     * Moment de la prochaine attaque (en millisecondes).
+     */
     protected double nextAttackTime;
+
+    /**
+     * Indique si l'ennemi se déplace vers la droite.
+     */
     protected boolean movingRight = true;
+
+    /**
+     * Position de départ de l'ennemi.
+     */
     protected Vector2 startingPosition;
 
     /**
-     * Créer un enemie
+     * Crée un ennemi avec les paramètres spécifiés.
      * 
-     * @param pos
-     * @param health
-     * @param speed
-     * @param sprite
-     * @param size
-     * @param lerpSpeed
-     * @param points
+     * @param pos            Position initiale de l'ennemi
+     * @param health         Points de santé initiaux
+     * @param speed          Vitesse de déplacement
+     * @param sprite         Chemin du fichier sprite
+     * @param size           Taille de l'ennemi
+     * @param lerpSpeed      Vitesse d'interpolation vers la cible
+     * @param points         Nombre de points accordés à la destruction
+     * @param attackCooldown Temps d'attente entre deux attaques
      */
     public Enemy(Vector2 pos, int health, double speed, String sprite, double size, double lerpSpeed, int points,
             int attackCooldown) {
@@ -33,16 +54,34 @@ public abstract class Enemy extends Entity {
         this.startingPosition = pos;
     }
 
+    /**
+     * Obtient le nombre de points accordés à la destruction de cet ennemi.
+     * 
+     * @return Le nombre de points
+     */
     public int getPoints() {
         return points;
     }
 
+    /**
+     * Effectue une attaque spécifique à cet ennemi.
+     * 
+     * Cette méthode abstraite doit être implémentée par les sous-classes.
+     */
     public abstract void attack();
 
+    /**
+     * Vérifie si cet ennemi a un allié en dessous (même colonne, plus bas).
+     * 
+     * @return true s'il y a un allié en dessous, false sinon
+     */
     public boolean hasAllyBelow() {
         return LevelManager.enemyHasAllyBelow(this);
     }
 
+    /**
+     * Tire un missile vers le bas depuis la position de l'ennemi.
+     */
     public void shoot() {
         if (isAlive() && canAttack) {
             Missile missile = new Missile(position.sub(new Vector2(0.005, size)), 0.01, false);
@@ -51,6 +90,11 @@ public abstract class Enemy extends Entity {
         }
     }
 
+    /**
+     * Tire un missile vers le bas depuis une position décalée.
+     * 
+     * @param offset Le décalage par rapport à la position de l'ennemi
+     */
     public void shoot(Vector2 offset) {
         if (isAlive() && canAttack) {
             Missile missile = new Missile(position.add(offset).sub(new Vector2(0.005, size)), 0.01, false);

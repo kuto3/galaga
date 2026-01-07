@@ -8,14 +8,55 @@ import game.Game;
 
 import utils.EntityUtils;
 
+/**
+ * Classe représentant un missile dans le jeu.
+ * 
+ * Les missiles peuvent être tirés par le joueur ou par les ennemis.
+ * Un missile se déplace verticalement et est détruit s'il quitte l'écran.
+ * 
+ * @version 1.0
+ */
 public class Missile {
+
+    /**
+     * Position actuelle du missile.
+     */
     private Vector2 position;
+
+    /**
+     * Vitesse de déplacement du missile.
+     */
     private double speed;
+
+    /**
+     * Chemin du fichier sprite du missile.
+     */
     private String sprite;
+
+    /**
+     * Taille du missile.
+     */
     private double size;
+
+    /**
+     * Informations du sprite chargées depuis un fichier.
+     */
     private Color[][] spriteInfo;
+
+    /**
+     * Indique si le missile se déplace vers le haut (joueur) ou vers le bas
+     * (ennemi).
+     */
     private boolean goingUp;
 
+    /**
+     * Crée un missile avec les paramètres spécifiés.
+     * 
+     * @param pos     Position initiale du missile
+     * @param speed   Vitesse de déplacement du missile
+     * @param goingUp true si le missile va vers le haut (tir du joueur), false vers
+     *                le bas (tir ennemi)
+     */
     public Missile(Vector2 pos, double speed, boolean goingUp) {
         this.position = pos;
         this.speed = speed;
@@ -25,6 +66,12 @@ public class Missile {
         this.spriteInfo = EntityUtils.loadSpriteInfo(sprite);
     }
 
+    /**
+     * Dessine le missile.
+     * 
+     * Si un sprite est défini, utilise les informations du sprite pour dessiner.
+     * Sinon, dessine un cercle rouge par défaut.
+     */
     public void draw() {
         if (sprite == null || spriteInfo == null) {
             StdDraw.setPenColor(Color.RED);
@@ -46,6 +93,11 @@ public class Missile {
         }
     };
 
+    /**
+     * Met à jour la position du missile.
+     * 
+     * Déplace le missile vers le haut ou vers le bas selon sa direction.
+     */
     public void update() {
         double newX = position.x();
         double newY = position.y();
@@ -53,6 +105,11 @@ public class Missile {
         position = newTargetPos;
     }
 
+    /**
+     * Obtient la position actuelle du missile.
+     * 
+     * @return La position du missile
+     */
     public Vector2 getPosition() {
         return position;
     }

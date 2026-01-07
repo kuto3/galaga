@@ -6,7 +6,28 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * Utilitaire pour gérer les ressources des entités du jeu.
+ * 
+ * Fournit des méthodes pour charger les informations de sprites depuis des
+ * fichiers.
+ * 
+ * @version 1.0
+ */
 public class EntityUtils {
+
+    /**
+     * Charge les informations d'un sprite à partir d'un fichier.
+     * 
+     * Chaque ligne du fichier contient des caractères représentant les pixels.
+     * Les caractères sont convertis en couleurs via ColorUtils.
+     * 
+     * Format: chaque caractère = un pixel
+     * 
+     * @param sprite Le nom du sprite (sans extension .spr)
+     * @return Une matrice 2D de couleurs représentant le sprite,
+     *         ou null si le fichier n'existe pas
+     */
     public static Color[][] loadSpriteInfo(String sprite) {
         File file = new File("ressources/sprites/" + sprite + ".spr");
 

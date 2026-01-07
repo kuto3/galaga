@@ -10,20 +10,53 @@ import java.nio.file.Path;
 
 /**
  * Classe du jeu principal.
+ * 
  * Gère la création de l'espace de jeu et la boucle de jeu en temps réel.
+ * Cette classe est responsable de l'initialisation du jeu, de la gestion de la
+ * boucle
+ * principale, du dessin et de la mise à jour de tous les éléments du jeu.
+ * Elle gère également le score, le highscore et l'état du jeu (en cours ou game
+ * over).
+ * 
+ * @version 1.0
  */
 public class Game {
+
+    /**
+     * Largeur de l'écran de jeu en pixels.
+     */
     public static int SCREEN_WIDTH = 1000;
+
+    /**
+     * Hauteur de l'écran de jeu en pixels.
+     */
     public static int SCREEN_HEIGHT = 1000;
 
+    /**
+     * Le temps écoulé depuis le début du jeu en millisecondes.
+     */
     public static int time;
+
+    /**
+     * Indique si le jeu est terminé.
+     */
     private static boolean gameOver = false;
+
+    /**
+     * Le meilleur score enregistré.
+     */
     public static int highscore = loadHighsScore();
+
+    /**
+     * Le score actuel.
+     */
     public static int score = 0;
 
     /**
-     * /**
-     * Initialise l'espace de jeu
+     * Initialise l'espace de jeu et les éléments nécessaires.
+     * 
+     * Configure la taille de la fenêtre, active le double buffering
+     * et démarre le gestionnaire de niveaux.
      */
     private void init() {
         StdDraw.setCanvasSize(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -32,7 +65,16 @@ public class Game {
     }
 
     /**
-     * Initialise le jeu et lance la boucle de jeu en temps réel
+     * Initialise le jeu et lance la boucle de jeu en temps réel.
+     * 
+     * Cette méthode contient la boucle principale du jeu qui:
+     * - Efface l'écran
+     * - Met à jour les éléments du jeu
+     * - Dessine les éléments
+     * - Affiche l'écran
+     * - Attend 30 millisecondes avant la prochaine itération
+     * 
+     * Elle gère également la sauvegarde du highscore à chaque itération.
      */
     public void launch() {
         init();
@@ -57,6 +99,13 @@ public class Game {
         }
     }
 
+    /**
+     * Charge le meilleur score enregistré depuis le fichier de configuration.
+     * 
+     * Si le fichier n'existe pas ou est corrompu, retourne 0.
+     * 
+     * @return Le meilleur score enregistré, ou 0 s'il n'existe pas
+     */
     private static int loadHighsScore() {
         try {
             String content = Files.readString(Path.of("ressources/highscore/highscore.sc"));
@@ -70,6 +119,15 @@ public class Game {
         }
     }
 
+    /**
+     * Met à jour le score actuel et le highscore.
+     * 
+     * Ajoute la valeur au score actuel et met à jour le highscore
+     * s'il est dépassé. Notifie également le gestionnaire d'interface
+     * des changements.
+     * 
+     * @param value La valeur à ajouter au score actuel
+     */
     public static void updateScore(int value) {
         score += value;
         highscore = Math.max(score, highscore);
@@ -77,25 +135,37 @@ public class Game {
         InterfaceManager.setScore(score);
     }
 
+    /**
+     * Réinitialise le score actuel à 0.
+     */
     public static void resetScore() {
         score = 0;
     }
 
     /**
-     * Condition d'arrêt du jeu
+     * Vérifie si le jeu est en cours d'exécution.
      * 
-     * @return true car on n'as pas encore de conidtions d'arrêt
+     * @return true si le jeu doit continuer, false sinon
      */
     private boolean isGameRunning() {
         return true;
     }
 
+    /**
+     * Obtient le niveau actuel.
+     * 
+     * @return Le niveau actuel du gestionnaire de niveaux
+     */
     private Level getLevel() {
         return LevelManager.getCurrentLevel();
     }
 
     /**
-     * Dessin tous les éléments du jeu
+     * Dessine tous les éléments du jeu.
+     * 
+     * Dessine le fond noir, puis appelle les méthodes de dessin du gestionnaire
+     * de niveaux et du gestionnaire d'interface. Affiche également un message
+     * de game over si le jeu est terminé.
      */
     public void draw() {
         StdDraw.setPenColor(Color.BLACK);
@@ -111,7 +181,11 @@ public class Game {
     }
 
     /**
-     * Met a jour les attributs de tous les éléments du jeu
+     * Met à jour les attributs de tous les éléments du jeu.
+     * 
+     * Appelle les méthodes de mise à jour du gestionnaire de niveaux
+     * et du gestionnaire d'interface. Gère également la détection du game over
+     * et le redémarrage du jeu.
      */
     private void update() {
         LevelManager.update();

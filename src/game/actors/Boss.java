@@ -6,21 +6,31 @@ import game.Game;
 import utils.Vector2;
 
 /**
- * Classe Boss
+ * Classe représentant un boss ennemi.
+ * 
+ * Un boss est un ennemi plus puissant avec plus de santé et un attaque double
+ * qui tire deux missiles à la fois (un à gauche, un à droite).
+ * 
+ * @version 1.0
  */
 public class Boss extends Enemy {
+
     /**
-     * Créer un Boss
+     * Crée un boss ennemi avec les paramètres spécifiés.
      * 
-     * @param targetPosition
-     * @param speed
-     * @param size
-     * @param points
+     * @param targetPosition Position initiale du boss
+     * @param speed          Vitesse de déplacement
+     * @param size           Taille du boss
+     * @param points         Nombre de points accordés à sa destruction
+     * @param attackCooldown Temps minimum entre deux attaques en millisecondes
      */
     public Boss(Vector2 targetPosition, double speed, double size, int points, int attackCooldown) {
         super(targetPosition, 10, speed, "boss", size, 0.1, points, attackCooldown);
     }
 
+    /**
+     * Le boss tire deux missiles simultanément (un à gauche, un à droite).
+     */
     @Override
     public void attack() {
         shoot(new Vector2(-0.01, 0));
