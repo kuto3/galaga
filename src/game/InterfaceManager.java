@@ -1,6 +1,7 @@
 package game;
 
 import engine.StdDraw;
+import game.levels.LevelManager;
 import java.awt.Font;
 
 /**
@@ -33,7 +34,8 @@ public class InterfaceManager {
         StdDraw.setFont(new Font("Arial", Font.BOLD, 24));
         StdDraw.text(0.1, 0.95, "SCORE: " + score); // Coordonnées normalisées
         StdDraw.text(0.85, 0.95, "HIGH SCORE: " + highscore); // Coordonnées normalisées
-
+        StdDraw.setPenColor(StdDraw.WHITE);
+        StdDraw.text(0.85, 0.90,  LevelManager.getCurrentLevel().getName()); // Coordonnées normalisées
         StdDraw.picture(0.5, 0.93, "ressources/logo/logo.png"); // centre de l'écran
     }
 
