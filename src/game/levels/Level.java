@@ -187,17 +187,11 @@ public class Level {
      * @return true s'il y a au moins un allié directement en dessous
      */
     public boolean enemyHasAllyBelow(Enemy enemy) {
+        var pos = enemy.getPosition();
         for (var ally : enemies) {
-            var pos = enemy.getPosition();
-            var lineBelow = new Vector2(pos.x(), pos.y() + enemy.getSize());
-            var offset = new Vector2(0.05, 0);
-
-            var min = lineBelow.sub(offset);
-            var max = lineBelow.add(offset);
-
-            if (ally != enemy && ally.getPosition().isInBoundBox(min, max)) {
+            var allyPos = ally.getPosition();
+            if (Math.abs(allyPos.x() - pos.x()) < 0.05 && allyPos.y() < pos.y())
                 return true;
-            }
         }
         return false;
     }
