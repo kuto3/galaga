@@ -34,6 +34,5 @@ public class Butterfly extends Enemy {
     @Override
     public void attack() {
         shoot();
-        nextAttackTime = Game.time + new Random().nextDouble(attackSpeed, attackSpeed + 5);
     }
 }

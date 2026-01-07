@@ -33,6 +33,5 @@ public class Moth extends Enemy {
     @Override
     public void attack() {
         System.out.println("ATTAQUE DU MOTH");
-        nextAttackTime = Game.time + new Random().nextDouble(attackSpeed, attackSpeed + 5);
     }
 }

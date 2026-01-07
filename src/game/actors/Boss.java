@@ -35,6 +35,5 @@ public class Boss extends Enemy {
     public void attack() {
         shoot(new Vector2(-0.01, 0));
         shoot(new Vector2(0.01, 0));
-        nextAttackTime = Game.time + new Random().nextDouble(attackSpeed, attackSpeed + 5);
     }
 }

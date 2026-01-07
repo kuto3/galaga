@@ -1,5 +1,7 @@
 package game.actors;
 
+import java.util.Random;
+
 import game.Game;
 import game.levels.LevelManager;
 import utils.Vector2;
@@ -118,8 +120,10 @@ public abstract class Enemy extends Entity {
         if (Game.time % 500 == 0)
             movingRight = !movingRight;
 
-        if (canAttack && Game.time > nextAttackTime)
+        if (canAttack && Game.time > nextAttackTime) {
             attack();
+            nextAttackTime = Game.time + new Random().nextDouble(attackSpeed, attackSpeed + 5);
+        }
 
         Vector2 newTargetPos = new Vector2(
                 startingPos.x() + (movingRight ? 0.04 : -0.04),
