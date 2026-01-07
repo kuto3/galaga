@@ -76,6 +76,7 @@ public abstract class Enemy extends Entity {
         this.startingPosition = pos;
         this.movingRight = true;
         this.startingSpeed = speed;
+        this.nextAttackTime = Game.time + attackSpeed + new Random().nextDouble(10) * 100;
     }
 
     /**
@@ -127,6 +128,14 @@ public abstract class Enemy extends Entity {
         }
     }
 
+    /**
+     * Fonction exécutée à la fin d'une attaque.
+     */
+    protected void onAttackEnd() {
+        isAttacking = false;
+        setTargetPosition(startingPos);
+    }
+
     @Override
     public void update() {
         // L'enemie peut pas attaquer s'il y a un allié en dessous
@@ -135,15 +144,19 @@ public abstract class Enemy extends Entity {
         if (Game.time % 500 == 0)
             movingRight = !movingRight;
 
-        if (canAttack && Game.time > nextAttackTime) {
-            isAttacking = true;
-            attackingStopTime = attackDuration > 0 ? Game.time + attackDuration : -1;
-            attack();
-            nextAttackTime = Game.time + attackSpeed + new Random().nextDouble(10) * 100;
-        }
+        if (canAttack) {
+            if (Game.time > nextAttackTime) {
+                isAttacking = true;
+                attackingStopTime = attackDuration > 0 ? Game.time + attackDuration : -1;
+                nextAttackTime = Game.time + attackSpeed + new Random().nextDouble(1000) * 100;
+                attackingStopTime = Math.min(attackingStopTime, nextAttackTime);
+            }
 
-        if (isAttacking && Game.time > attackingStopTime && attackDuration > 0) {
-            isAttacking = false;
+            if (isAttacking)
+                attack();
+
+            if (isAttacking && attackDuration > 0 && Game.time > attackingStopTime)
+                onAttackEnd();
         }
 
         Vector2 newTargetPos = isAttacking ? targetPosition
@@ -152,10 +165,6 @@ public abstract class Enemy extends Entity {
                         targetPosition.y());
 
         // On plafone la nouvelle position dans les limites de l'écran
-        newTargetPos.clampToBoundBox(
-                new Vector2(size / 2, size / 2),
-                new Vector2(1 - size / 2, 1 - size / 2));
-
         setTargetPosition(newTargetPos);
 
         super.update();

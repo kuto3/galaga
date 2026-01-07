@@ -190,6 +190,7 @@ public class Game {
     private void update() {
         LevelManager.update();
         InterfaceManager.update();
+
         if (getLevel() != null) {
             if (!getLevel().getPlayer().isAlive()) {
                 gameOver = true;
@@ -197,7 +198,7 @@ public class Game {
             }
         }
 
-        if (StdDraw.isKeyPressed(27) && gameOver) {
+        if (gameOver && StdDraw.isKeyPressed(27)) {
             gameOver = false;
             LevelManager.restart();
         }

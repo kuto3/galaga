@@ -1,8 +1,5 @@
 package game.actors;
 
-import java.util.Random;
-
-import game.Game;
 import utils.Vector2;
 
 /**
@@ -26,6 +23,7 @@ public class Bee extends Enemy {
      */
     public Bee(Vector2 targetPosition, double speed, double size, int points, int attackCooldown) {
         super(targetPosition, 1, speed, "bee", size, 0.1, points, attackCooldown);
+        attackDuration = 10_000;
     }
 
     /**
@@ -34,6 +32,12 @@ public class Bee extends Enemy {
     @Override
     public void attack() {
         speed = startingSpeed;
-        setTargetPosition();
+        setTargetPosition(new Vector2(position.x(), position.y() - speed * 10));
+    }
+
+    @Override
+    protected void onAttackEnd() {
+        super.onAttackEnd();
+        health = 0;
     }
 }

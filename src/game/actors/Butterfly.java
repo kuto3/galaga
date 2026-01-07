@@ -1,7 +1,5 @@
 package game.actors;
 
-import java.util.Random;
-
 import game.Game;
 import utils.Vector2;
 
@@ -26,6 +24,7 @@ public class Butterfly extends Enemy {
      */
     public Butterfly(Vector2 targetPosition, double speed, double size, int points, int attackCooldown) {
         super(targetPosition, 1, speed, "butterfly", size, 0.1, points, attackCooldown);
+        attackDuration = 2;
     }
 
     /**
@@ -33,6 +32,7 @@ public class Butterfly extends Enemy {
      */
     @Override
     public void attack() {
-        shoot();
+        if (Game.time > attackSpeed)
+            shoot();
     }
 }

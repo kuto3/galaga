@@ -1,7 +1,5 @@
 package game.actors;
 
-import java.util.Random;
-
 import game.Game;
 import utils.Vector2;
 
@@ -25,7 +23,7 @@ public class Boss extends Enemy {
      * @param attackCooldown Temps minimum entre deux attaques en millisecondes
      */
     public Boss(Vector2 targetPosition, double speed, double size, int points, int attackCooldown) {
-        super(targetPosition, 10, speed, "boss", size, 0.1, points, attackCooldown);
+        super(targetPosition, 20, speed, "boss", size, 0.1, points, attackCooldown);
     }
 
     /**
@@ -33,7 +31,9 @@ public class Boss extends Enemy {
      */
     @Override
     public void attack() {
-        shoot(new Vector2(-0.01, 0));
-        shoot(new Vector2(0.01, 0));
+        if (Game.time > nextAttackTime) {
+            shoot(new Vector2(-0.01, 0));
+            shoot(new Vector2(0.01, 0));
+        }
     }
 }

@@ -60,10 +60,10 @@ public class LevelManager {
             var levelInfos = lines[0].split(" ");
             String name = levelInfos[0];
             double formationSpeed = Double.parseDouble(levelInfos[1]);
-            int attackSpeed = 100; // Integer.parseInt(levelInfos[2]);
+            int attackSpeed = Integer.parseInt(levelInfos[2]);
             int attackIntermission = Integer.parseInt(levelInfos[3]);
 
-            var levelObj = new Level(name, lives, formationSpeed, attackSpeed);
+            var levelObj = new Level(name, lives, formationSpeed);
             for (int i = 1; i < lines.length; i++)
                 levelObj.addEnemy(getEnemyFromString(lines[i], formationSpeed, attackIntermission));
 

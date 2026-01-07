@@ -59,22 +59,20 @@ public class Level {
     /**
      * Crée un nouveau niveau avec les paramètres spécifiés.
      * 
-     * @param name        Nom du niveau
-     * @param lives       Nombre de vies initiales du joueur
-     * @param speed       Vitesse de déplacement de la formation d'ennemis
-     * @param attackSpeed Délai entre les tirs du joueur en millisecondes
+     * @param name  Nom du niveau
+     * @param lives Nombre de vies initiales du joueur
+     * @param speed Vitesse de déplacement de la formation d'ennemis
      */
-    public Level(String name, int lives, double speed, int attackSpeed) {
+    public Level(String name, int lives, double speed) {
         this.name = name;
         enemies = new ArrayList<>();
         missiles = new ArrayList<>();
         enemyMissiles = new ArrayList<>();
-        player = new Player(new Vector2(0.5, 0.15), 0.04, lives, attackSpeed);
+        player = new Player(new Vector2(0.5, 0.15), 0.04, lives, 300);
         formationSpeed = speed;
         playerLives.add(new Life(new Vector2(0.05, 0.1), 0.04));
         playerLives.add(new Life(new Vector2(0.1, 0.1), 0.04));
         playerLives.add(new Life(new Vector2(0.15, 0.1), 0.04));
-
     }
 
     /**
@@ -175,7 +173,7 @@ public class Level {
      * @return true si tous les ennemis sont vaincus ou le joueur est mort
      */
     public boolean levelCleared() {
-        return enemies.isEmpty() || !player.isAlive();
+        return enemies.isEmpty();
     }
 
     /**
@@ -191,13 +189,20 @@ public class Level {
         var enemyMissilesToRemove = new ArrayList<Missile>();
 
         // On check et stock les missiles et enemies qui sont en contact
-        missiles.forEach(missile -> {
-            enemies.forEach(ennemy -> {
+        enemies.forEach(ennemy -> {
+            missiles.forEach(missile -> {
                 if (missile.getPosition().distanceOf(ennemy.getPosition()) < 0.05) {
                     enemiesToRemove.add(ennemy);
                     missilesToRemove.add(missile);
                 }
             });
+            if (ennemy.getPosition().distanceOf(player.getPosition()) < 0.05) {
+                player.takeDamage(1);
+                if (!enemiesToRemove.contains(ennemy))
+                    enemiesToRemove.add(ennemy);
+                if (!playerLives.isEmpty())
+                    playerLives.removeLast();
+            }
         });
 
         enemyMissiles.forEach(missile -> {
