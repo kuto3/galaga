@@ -142,7 +142,7 @@ public abstract class Enemy extends Entity {
             nextAttackTime = Game.time + attackSpeed + new Random().nextDouble(10) * 100;
         }
 
-        if (isAttacking && Game.time > attackingStopTime) {
+        if (isAttacking && Game.time > attackingStopTime && attackDuration > 0) {
             isAttacking = false;
         }
 
