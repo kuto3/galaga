@@ -239,4 +239,8 @@ public class Level {
         enemyMissilesToRemove.forEach(missile -> enemyMissiles.remove(missile));
     }
 
+    public String getName() {
+        return name;
+    }
+
 }
