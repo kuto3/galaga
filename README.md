@@ -160,6 +160,4 @@ ESC : Recommencer la partie après un game over
 Lorsque vous perdez toutes vos vies, l'écran "GAME OVER" s'affiche.
 Appuyez sur ESC pour recommencer une nouvelle partie.
 
-===============================================================================
-BON JEU !
-===============================================================================
+# BON JEU !
