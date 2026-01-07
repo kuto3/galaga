@@ -1,11 +1,7 @@
 ROLANDIN Enzo binôme 1
 LE GAL Demet binôme 2
 
-===============================================================================
-
 # PROJET GALAGA - CLONE DE JEU
-
-===============================================================================
 
 ## Explication des fonctionnalités réalisées :
 
